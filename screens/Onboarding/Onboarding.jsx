@@ -4,7 +4,7 @@ import React from 'react'
 const Onboarding = () => {
   return (
     <View>
-      <Text>Hello</Text>
+      <Text>OOOOOOOOOOO</Text>
     </View>
   )
 }
