@@ -3,8 +3,6 @@ import {
   View,
   Text,
   StatusBar,
-  StyleSheet,
-  Dimensions,
   TouchableOpacity,
   Image,
 } from "react-native";
@@ -15,11 +13,12 @@ import { COLORS, TEXT } from "../../constants/theme";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ReusableText } from "../../components";
+import homeStyles from "../screens.style";
 
 const Home = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [isModalVisible, setModalVisible] = useState(true); // Modal her zaman açık
+  const [isModalVisible, setModalVisible] = useState(true); 
 
   useEffect(() => {
     (async () => {
@@ -45,20 +44,14 @@ const Home = () => {
     text = JSON.stringify(location);
   }
 
-  const dateInfo = {
-    day: "12",
-    month: "October",
-    weekday: "Thursday",
-  };
-
   const CustomMarker = ({ coordinate, imageUri }) => {
     return (
       <Marker coordinate={coordinate}>
-        <View style={styles.markerContainer}>
-          <View style={styles.imageContainer}>
-            <Image source={{ uri: imageUri }} style={styles.markerImage} />
+        <View style={homeStyles.markerContainer}>
+          <View style={homeStyles.imageContainer}>
+            <Image source={{ uri: imageUri }} style={homeStyles.markerImage} />
           </View>
-          <View style={styles.iconContainer}>
+          <View style={homeStyles.iconContainer}>
             <MaterialIcons name="location-history" size={20} color="white" />
           </View>
         </View>
@@ -67,10 +60,10 @@ const Home = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={homeStyles.container}>
       {location ? (
         <MapView
-          style={styles.map}
+          style={homeStyles.map}
           initialRegion={{
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
@@ -101,20 +94,20 @@ const Home = () => {
         isVisible={isModalVisible}
         swipeDirection="down"
         onSwipeComplete={() => setModalVisible(false)} 
-        style={styles.modal}
+        style={homeStyles.modal}
         backdropOpacity={0} 
       >
-        <View style={styles.modalContent}>
-          <View style={styles.dragHandleContainer}>
-            <View style={styles.dragHandle} />
+        <View style={homeStyles.modalContent}>
+          <View style={homeStyles.dragHandleContainer}>
+            <View style={homeStyles.dragHandle} />
           </View>
-          <View style={styles.flexSpace}>
-            <View style={styles.flexContainer}>
+          <View style={homeStyles.flexSpace}>
+            <View style={homeStyles.flexContainer}>
               <Image
                 source={{
                   uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 }}
-                style={styles.image}
+                style={homeStyles.image}
               />
               <View>
                 <ReusableText
@@ -124,7 +117,7 @@ const Home = () => {
                   color={COLORS.black}
                 />
                 <ReusableText
-                  text={`${dateInfo.day} ${dateInfo.month} ${dateInfo.weekday}`}
+                  text={`Merkez Mahallesi, 34000, Istanbul`}
                   family={"regular"}
                   size={TEXT.xxSmall}
                   color={COLORS.description}
@@ -132,7 +125,7 @@ const Home = () => {
               </View>
             </View>
             <View>
-              <TouchableOpacity style={styles.circle}>
+              <TouchableOpacity style={homeStyles.circle}>
                 <FontAwesome name="location-arrow" size={18} color="white" />
               </TouchableOpacity>
             </View>
@@ -142,9 +135,9 @@ const Home = () => {
       {!isModalVisible && (
         <TouchableOpacity
           onPress={toggleModal}
-          style={styles.dragHandleContainerFixed}
+          style={homeStyles.dragHandleContainerFixed}
         >
-          <View style={styles.dragHandle} />
+          <View style={homeStyles.dragHandle} />
         </TouchableOpacity>
       )}
     </View>
@@ -152,100 +145,3 @@ const Home = () => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  modal: {
-    justifyContent: "flex-end",
-    margin: 0,
-  },
-  modalContent: {
-    backgroundColor: "rgba(173, 255, 47, 0.80)", // Yarı saydam hale getirilmiş renk    paddingHorizontal: 20,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    marginHorizontal: 10,
-  },
-  closeButton: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    zIndex: 1,
-  },
-  closeButtonText: {
-    fontSize: 24,
-    color: "#000",
-  },
-  dragHandleContainer: {
-    alignItems: "center",
-    paddingVertical: 10,
-  },
-  dragHandleContainerFixed: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    alignItems: "center",
-    paddingVertical: 10,
-  },
-  dragHandle: {
-    width: 100,
-    height: 5,
-    backgroundColor: "#71727A",
-    borderRadius: 2.5,
-  },
-  flexContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  flexSpace: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
-    borderRadius: 25,
-  },
-  circle: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: "#111",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  markerContainer: {
-    alignItems: "center",
-  },
-  imageContainer: {
-    borderWidth: 5,
-    borderColor: "#000",
-    borderRadius: 15,
-    overflow: "hidden",
-    marginBottom: 3,
-  },
-  markerImage: {
-    width: 50,
-    height: 50,
-  },
-  iconContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: 25,
-    height: 25,
-    borderRadius: 15,
-    backgroundColor: "#000",
-  },
-});
