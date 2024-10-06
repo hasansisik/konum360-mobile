@@ -4,7 +4,8 @@ import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //screens
-import { Onboarding, Home, UserDetails } from "./screens/index.js";
+import { Onboarding, Home, UserDetails, Settings, Payment } from "./screens/index.js";
+import BottomTabNavigation from "./navigation/BottomTabNavigation.jsx";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,8 +28,23 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Group>
           <Stack.Screen
+            name="BottomTabNavigation"
+            component={BottomTabNavigation}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Home"
             component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Payment"
+            component={Payment}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={Settings}
             options={{ headerShown: false }}
           />
           <Stack.Screen

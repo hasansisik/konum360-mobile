@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { SIZES } from '../constants/theme';
+import { COLORS, SIZES } from '../constants/theme';
 
 const homeStyles = StyleSheet.create({
   container: {
@@ -35,7 +35,7 @@ const homeStyles = StyleSheet.create({
   },
   dragHandleContainerFixed: {
     position: "absolute",
-    bottom: 0,
+    bottom: 90,
     left: 0,
     right: 0,
     alignItems: "center",
@@ -92,6 +92,28 @@ const homeStyles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: "#000",
   },
+  flexSpace: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  box: {
+    height: 40,
+    backgroundColor: COLORS.lightInput,
+    borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  boxIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: COLORS.black,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
 });
 
 export default homeStyles;

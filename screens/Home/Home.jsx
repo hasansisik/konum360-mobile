@@ -5,16 +5,15 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
-  FlatList,
+  SafeAreaView,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
-import Modal from "react-native-modal";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import homeStyles from "../screens.style";
-import HomeCard from "../../components/Card/homeCard";
-import { SIZES } from "../../constants/theme";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import HomeModal from "../../components/Reusable/HomeModal"; 
+import { AntDesign } from "@expo/vector-icons";
 
 const Home = () => {
   const [location, setLocation] = useState(null);
@@ -29,11 +28,11 @@ const Home = () => {
   );
 
   useEffect(() => {
-    const unsubscribeFocus = navigation.addListener('focus', () => {
+    const unsubscribeFocus = navigation.addListener("focus", () => {
       setModalVisible(true);
     });
 
-    const unsubscribeBlur = navigation.addListener('blur', () => {
+    const unsubscribeBlur = navigation.addListener("blur", () => {
       setModalVisible(false);
     });
 
@@ -104,17 +103,10 @@ const Home = () => {
       name: "Ali Kaya",
       address: "Camii Mahallesi, 34000, Istanbul",
     },
-    {
-      id: "4",
-      imageUri:
-        "https://plus.unsplash.com/premium_photo-1670071482460-5c08776521fe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHVzZXJ8ZW58MHx8MHx8fDA%3D",
-      name: "Ayşe Kaya",
-      address: "Yeni Mahallesi, 34000, Istanbul",
-    },
   ];
 
   return (
-    <View style={homeStyles.container}>
+    <SafeAreaView style={homeStyles.container}>
       {location ? (
         <MapView
           style={homeStyles.map}
@@ -144,35 +136,22 @@ const Home = () => {
       ) : (
         <Text>{text}</Text>
       )}
-      <Modal
-        isVisible={isModalVisible}
-        swipeDirection="down"
-        onSwipeComplete={() => setModalVisible(false)}
-        style={homeStyles.modal}
-        backdropOpacity={0}
-        propagateSwipe
-      >
-        <View style={homeStyles.modalContent}>
-          <View style={homeStyles.dragHandleContainer}>
-            <View style={homeStyles.dragHandle} />
-          </View>
-          <FlatList
-            data={data}
-            renderItem={({ item }) => <HomeCard item={item} />}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={{ gap: SIZES.medium }}
-          />
-        </View>
-      </Modal>
+      <HomeModal
+        isModalVisible={isModalVisible}
+        toggleModal={toggleModal}
+        data={data}
+      />
       {!isModalVisible && (
         <TouchableOpacity
           onPress={toggleModal}
           style={homeStyles.dragHandleContainerFixed}
         >
-          <View style={homeStyles.dragHandle} />
+          <View style={homeStyles.boxIcon}>
+            <AntDesign name="up" size={20} color="white" />
+          </View>
         </TouchableOpacity>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
