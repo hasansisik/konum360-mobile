@@ -4,7 +4,7 @@ import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //screens
-import { Onboarding,Home } from "./screens/index.js";
+import { Onboarding, Home, UserDetails } from "./screens/index.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +29,11 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="UserDetails"
+            component={UserDetails}
             options={{ headerShown: false }}
           />
         </Stack.Group>
