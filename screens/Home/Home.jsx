@@ -14,6 +14,7 @@ import homeStyles from "../screens.style";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import HomeModal from "../../components/Reusable/HomeModal"; 
 import { AntDesign } from "@expo/vector-icons";
+import { ToolBar } from "../../components";
 
 const Home = () => {
   const [location, setLocation] = useState(null);
@@ -107,6 +108,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={homeStyles.container}>
+      <ToolBar />
       {location ? (
         <MapView
           style={homeStyles.map}

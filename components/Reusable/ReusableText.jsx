@@ -1,10 +1,19 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const ReusableText = ({ text, family, size, color, align, underline }) => {
+const truncateText = (text, maxLength) => {
+  if (maxLength && text.length > maxLength) {
+    return text.substring(0, maxLength) + "...";
+  }
+  return text;
+};
+
+const ReusableText = ({ text, family, size, color, align, underline, maxLength }) => {
+  const truncatedText = truncateText(text, maxLength);
+
   return (
     <Text style={styles.textStyle(family, size, color, align, underline)}>
-      {text}
+      {truncatedText}
     </Text>
   );
 };

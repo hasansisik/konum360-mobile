@@ -113,7 +113,21 @@ const homeStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
+  triangle: {
+    width: 0,
+    height: 0,
+    borderLeftWidth: 20,
+    borderRightWidth: 20,
+    borderBottomWidth: 40,
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
+    borderBottomColor: "red",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginLeft: -20,
+    marginTop: -20,
+  },
 });
 
 export default homeStyles;

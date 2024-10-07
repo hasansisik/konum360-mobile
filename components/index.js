@@ -5,6 +5,7 @@ import ReusableButton from "./Reusable/ReusableButton";
 import ReusableInput from "./Reusable/ReusableInput";
 import ReusableCheckbox from "./Reusable/ReusableCheckbox";
 import AppBar from "./Reusable/AppBar";
+import ToolBar from "./Reusable/ToolBar";
 
 export {
   ReusableText,
@@ -14,4 +15,5 @@ export {
   ReusableInput,
   ReusableCheckbox,
   AppBar,
+  ToolBar,
 };
