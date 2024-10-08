@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Frontend",
-    "slug": "Frontend",
+    "name": "Konum360",
+    "slug": "Konum360",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

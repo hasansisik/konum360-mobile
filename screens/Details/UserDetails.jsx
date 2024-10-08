@@ -21,7 +21,7 @@ const UserDetails = ({ navigation }) => {
           top={20}
           left={20}
           right={20}
-          color={COLORS.white}
+          color={COLORS.lightBack}
           onPress={() => navigation.goBack()}
         />
       </View>

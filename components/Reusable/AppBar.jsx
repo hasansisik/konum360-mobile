@@ -38,7 +38,7 @@ const AppBar = ({
         >
           <AntDesign
             name={showDeleteIcon ? "back" : "arrowleft"}
-            size={25}
+            size={20}
             color={showDeleteIcon ? COLORS.white : COLORS.black}
           />
         </TouchableOpacity>
@@ -88,9 +88,9 @@ const styles = StyleSheet.create({
   }),
   box: (color) => ({
     backgroundColor: color,
-    width: 35,
-    height: 35,
-    borderRadius: 10,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
   }),

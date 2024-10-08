@@ -1,12 +1,135 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import {
+  View,
+  SafeAreaView,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import React from "react";
+import { AppBar, HeightSpacer, ReusableText, ReusableSettings } from "../../components";
+import { COLORS, TEXT } from "../../constants/theme";
+import homeStyles from "../screens.style";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Switch } from "react-native-paper";
 
-const Settings = () => {
+const Settings = ({ navigation }) => {
+  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+
+  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+
   return (
-    <View>
-      <Text>Settings</Text>
-    </View>
-  )
-}
+    <SafeAreaView
+      style={[
+        homeStyles.container,
+        { paddingTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight },
+      ]}
+    >
+      <View style={homeStyles.header}>
+        <AppBar
+          top={20}
+          left={20}
+          right={20}
+          color={COLORS.lightBack}
+          onPress={() => navigation.goBack()}
+        />
+      </View>
+      <View style={{ paddingHorizontal: 25 }}>
+        <ReusableText
+          text={"Ayarlar"}
+          family={"bold"}
+          size={TEXT.xLarge}
+          color={COLORS.lightBlack}
+        />
+        <HeightSpacer height={20} />
+        <View style={{ paddingBottom: 5 }}>
+          <ReusableText
+            text="Genel"
+            family={"regular"}
+            size={TEXT.small}
+            color={COLORS.description}
+          />
+        </View>
+        <View style={styles.settingsBox}>
+          <TouchableOpacity style={styles.box}>
+            <View style={{ flexDirection: "row", gap: 10 }}>
+              <MaterialIcons name="location-history" size={24} color="black" />
+              <ReusableText
+                text={"Bulunabilir ol"}
+                family={"regular"}
+                size={TEXT.medium}
+                color={COLORS.black}
+              />
+            </View>
+            <View style={styles.switchContainer}>
+              <Switch
+                value={isSwitchOn}
+                onValueChange={onToggleSwitch}
+                color={COLORS.primary}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <HeightSpacer height={20} />
+        <View style={{ paddingBottom: 5 }}>
+          <ReusableText
+            text="Politikalar"
+            family={"regular"}
+            size={TEXT.small}
+            color={COLORS.description}
+          />
+        </View>
+        <View style={styles.settingsBox}>
+          <ReusableSettings
+            icon={"document-lock-outline"}
+            title="Gizlilik Politikası"
+            onPress={() => navigation.navigate("PrivacyPoliticy")}
+          />
+          <View
+            style={{ borderTopWidth: 1, borderColor: COLORS.lightBorder }}
+          />
+          <ReusableSettings
+            icon={"receipt-outline"}
+            title="Kullanım Koşulları"
+            onPress={() => navigation.navigate("TermsPoliticy")}
+          />
+          <View
+            style={{ borderTopWidth: 1, borderColor: COLORS.lightBorder }}
+          />
+          <ReusableSettings
+            icon={"cash-outline"}
+            title="İade ve Geri Ödeme Politikası"
+            onPress={() => navigation.navigate("SubscriptionPolitcy")}
+          />
+          <View
+            style={{ borderTopWidth: 1, borderColor: COLORS.lightBorder }}
+          />
+          <ReusableSettings
+            icon={"card-outline"}
+            title="Abonelik ve Üyelik"
+            onPress={() => navigation.navigate("RefundPolitcy")}
+          />
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};
 
-export default Settings
+export default Settings;
+
+const styles = StyleSheet.create({
+  settingsBox: {
+    backgroundColor: COLORS.lightInput,
+    borderRadius: 10,
+  },
+  box: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  switchContainer: {
+    transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
+  },
+});

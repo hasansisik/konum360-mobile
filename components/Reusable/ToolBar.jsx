@@ -13,14 +13,22 @@ const ToolBar = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
-        <TouchableOpacity style={styles.circle} onPress={() => console.log("Message icon pressed")}>
+        <TouchableOpacity
+          style={[styles.circle, styles.touchableArea]}
+          onPress={() => console.log("Message icon pressed")}
+          activeOpacity={0.7}
+        >
           <MaterialCommunityIcons
             name="message-badge-outline"
             size={24}
             color={COLORS.lightBlack}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.circle} onPress={() => console.log("Settings icon pressed")}>
+        <TouchableOpacity
+          style={[styles.circle, styles.touchableArea]}
+          onPress={() => console.log("Settings icon pressed")}
+          activeOpacity={0.7}
+        >
           <Ionicons
             name="settings-outline"
             size={24}
@@ -40,17 +48,26 @@ const ToolBar = () => {
         </View>
       </View>
       <View style={styles.middleRow}>
-        <TouchableOpacity style={styles.circle} onPress={() => console.log("Add icon pressed")}>
+        <TouchableOpacity
+          style={styles.circle}
+          onPress={() => console.log("Add icon pressed")}
+        >
           <MaterialIcons name="add" size={24} color={COLORS.lightBlack} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.circle} onPress={() => console.log("Horizontal rule icon pressed")}>
+        <TouchableOpacity
+          style={styles.circle}
+          onPress={() => console.log("Horizontal rule icon pressed")}
+        >
           <MaterialIcons
             name="horizontal-rule"
             size={24}
             color={COLORS.lightBlack}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.circle} onPress={() => console.log("Navigation icon pressed")}>
+        <TouchableOpacity
+          style={styles.circle}
+          onPress={() => console.log("Navigation icon pressed")}
+        >
           <Feather name="navigation" size={24} color={COLORS.lightBlack} />
         </TouchableOpacity>
       </View>

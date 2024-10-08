@@ -4,7 +4,17 @@ import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //screens
-import { Onboarding, Home, UserDetails, Settings, Payment } from "./screens/index.js";
+import {
+  Onboarding,
+  Home,
+  UserDetails,
+  Settings,
+  Payment,
+  PrivacyPoliticy,
+  RefundPolitcy,
+  SubscriptionPolitcy,
+  TermsPoliticy,
+} from "./screens/index.js";
 import BottomTabNavigation from "./navigation/BottomTabNavigation.jsx";
 
 const Stack = createNativeStackNavigator();
@@ -50,6 +60,26 @@ export default function App() {
           <Stack.Screen
             name="UserDetails"
             component={UserDetails}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PrivacyPoliticy"
+            component={PrivacyPoliticy}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RefundPolitcy"
+            component={RefundPolitcy}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SubscriptionPolitcy"
+            component={SubscriptionPolitcy}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="TermsPoliticy"
+            component={TermsPoliticy}
             options={{ headerShown: false }}
           />
         </Stack.Group>
