@@ -1,10 +1,7 @@
-// Data.js
-export const PrivacyPoliticy = `
-Son güncellenme: 19/09/2024
+export const PrivacyPoliticy = `Konum360 Gizlilik Politikası
 
-Projectxwire Gizlilik Politikası
 Giriş
-Projectxwire, kullanıcılarının gizliliğine saygı göstermeyi taahhüt eder. Bu gizlilik politikası, hangi bilgileri topladığımızı, bu bilgileri nasıl kullandığımızı ve koruduğumuzu açıklamaktadır.
+Konum360, kullanıcılarının gizliliğine saygı göstermeyi taahhüt eder. Bu gizlilik politikası, hangi bilgileri topladığımızı, bu bilgileri nasıl kullandığımızı ve koruduğumuzu açıklamaktadır.
 
 Topladığımız Bilgiler
 Kişisel Bilgiler: Ad, soyad, e-posta adresi, telefon numarası, iş unvanı, adres.

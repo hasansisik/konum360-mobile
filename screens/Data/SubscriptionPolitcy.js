@@ -1,4 +1,4 @@
-const SubscriptionPolitcy = `
+export const  SubscriptionPolitcy = `
 Son güncellenme: 19/09/2024
 
 Çerez Politikası
@@ -17,5 +17,3 @@ Kullanıcılar, çerez ayarlarını tarayıcı veya cihaz ayarlarından değişt
 Çerez Politikası Değişiklikleri
 Çerez politikamızı zaman zaman güncelleyebiliriz. Güncellemeler bu sayfada yayınlanacaktır.
 `;
-
-export default SubscriptionPolitcy;

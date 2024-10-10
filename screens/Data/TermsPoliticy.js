@@ -1,4 +1,4 @@
-const TermsPoliticy = `
+export const TermsPoliticy = `
 Son güncellenme: 19/09/2024
 
 Kullanım Koşulları
@@ -23,5 +23,3 @@ Uygulamanın kesintisiz, hatasız veya tamamen güvenli olacağını garanti etm
 Kullanım Koşullarındaki Değişiklikler
 Bu kullanım koşulları, herhangi bir zamanda önceden bildirimde bulunmaksızın güncellenebilir. Kullanıcılar, bu koşulları düzenli olarak gözden geçirmelidir.
 `;
-
-export default TermsPoliticy;

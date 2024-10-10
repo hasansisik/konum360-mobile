@@ -1,12 +1,41 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, ScrollView, SafeAreaView, StyleSheet } from "react-native";
+import React from "react";
+import { AppBar, HeightSpacer, ReusableText } from "../../components";
+import { COLORS, TEXT } from "../../constants/theme";
+import { RefundPolitcy } from "../Data/RefundPolitcy";
+import homeStyles from "../screens.style";
 
-const RefundPolitcy = () => {
+const RefundPolitcyScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>RefundPolitcy</Text>
-    </View>
-  )
-}
+    <SafeAreaView style={homeStyles.container}>
+      {/* Header */}
+      <View style={homeStyles.header}>
+        <AppBar
+          top={50}
+          left={20}
+          right={20}
+          color={COLORS.lightBack}
+          onPress={() => navigation.goBack()}
+        />
+      </View>
+      <HeightSpacer height={25} />
+      {/* Scrollable Content */}
+      <ScrollView style={styles.textContainer}>
+        <ReusableText
+          text={RefundPolitcy} //
+          family={"medium"}
+          size={TEXT.xSmall}
+          color={COLORS.black}
+        />
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-export default RefundPolitcy
+const styles = StyleSheet.create({
+  textContainer: {
+    paddingHorizontal: 20,
+  },
+});
+
+export default RefundPolitcyScreen;

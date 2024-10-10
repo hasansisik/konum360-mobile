@@ -1,4 +1,4 @@
-const RefundPolitcy = `
+export const RefundPolitcy = `
 Son güncellenme: 19/09/2024
 
 İletişim
@@ -20,5 +20,3 @@ Teknik destek ve uygulama ile ilgili talepleriniz için: projectxwire@gmail.com
 Sosyal Medya
 Bizi sosyal medya hesaplarımızdan da takip edebilir, en güncel haberler ve duyurular için etkileşimde bulunabilirsiniz.
 `;
-
-export default RefundPolitcy;

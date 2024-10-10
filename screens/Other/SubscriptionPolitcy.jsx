@@ -1,12 +1,41 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, ScrollView, SafeAreaView, StyleSheet } from "react-native";
+import React from "react";
+import { AppBar, HeightSpacer, ReusableText } from "../../components";
+import { COLORS, TEXT } from "../../constants/theme";
+import { SubscriptionPolitcy } from "../Data/SubscriptionPolitcy";
+import homeStyles from "../screens.style";
 
-const SubscriptionPolitcy = () => {
+const SubscriptionPolitcyScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>SubscriptionPolitcy</Text>
-    </View>
-  )
-}
+    <SafeAreaView style={homeStyles.container}>
+      {/* Header */}
+      <View style={homeStyles.header}>
+        <AppBar
+          top={50}
+          left={20}
+          right={20}
+          color={COLORS.lightBack}
+          onPress={() => navigation.goBack()}
+        />
+      </View>
+      <HeightSpacer height={25} />
+      {/* Scrollable Content */}
+      <ScrollView style={styles.textContainer}>
+        <ReusableText
+          text={SubscriptionPolitcy} 
+          family={"medium"}
+          size={TEXT.xSmall}
+          color={COLORS.black}
+        />
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-export default SubscriptionPolitcy
+const styles = StyleSheet.create({
+  textContainer: {
+    paddingHorizontal: 20,
+  },
+});
+
+export default SubscriptionPolitcyScreen;
