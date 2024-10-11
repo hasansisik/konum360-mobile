@@ -1,4 +1,11 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  memo,
+  useMemo,
+} from "react";
 import {
   View,
   Text,
@@ -11,8 +18,8 @@ import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import homeStyles from "../screens.style";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import HomeModal from "../../components/Reusable/HomeModal"; 
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
+import HomeModal from "../../components/Reusable/HomeModal";
 import { AntDesign } from "@expo/vector-icons";
 import ToolBar from "../../components/Reusable/ToolBar";
 
@@ -21,6 +28,7 @@ const Home = () => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [isModalVisible, setModalVisible] = useState(true);
   const navigation = useNavigation();
+  const route = useRoute();
   const mapRef = useRef(null);
 
   useFocusEffect(
@@ -57,6 +65,12 @@ const Home = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    if (route.params?.closeModal) {
+      setModalVisible(false);
+    }
+  }, [route.params]);
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -70,13 +84,13 @@ const Home = () => {
 
   const handleZoomIn = async () => {
     const camera = await mapRef.current.getCamera();
-    camera.zoom += 2; 
+    camera.zoom += 2;
     mapRef.current.animateCamera(camera);
   };
-  
+
   const handleZoomOut = async () => {
     const camera = await mapRef.current.getCamera();
-    camera.zoom -= 2; 
+    camera.zoom -= 2;
     mapRef.current.animateCamera(camera);
   };
 
@@ -92,20 +106,32 @@ const Home = () => {
     }
   };
 
-  const CustomMarker = ({ coordinate, imageUri }) => {
-    return (
-      <Marker coordinate={coordinate}>
-        <View style={homeStyles.markerContainer}>
-          <View style={homeStyles.imageContainer}>
-            <Image source={{ uri: imageUri }} style={homeStyles.markerImage} />
+  const CustomMarker = memo(
+    ({ coordinate, imageUri }) => {
+      return (
+        <Marker coordinate={coordinate}>
+          <View style={homeStyles.markerContainer}>
+            <View style={homeStyles.imageContainer}>
+              <Image
+                source={{ uri: imageUri }}
+                style={homeStyles.markerImage}
+              />
+            </View>
+            <View style={homeStyles.iconContainer}>
+              <MaterialIcons name="location-history" size={20} color="white" />
+            </View>
           </View>
-          <View style={homeStyles.iconContainer}>
-            <MaterialIcons name="location-history" size={20} color="white" />
-          </View>
-        </View>
-      </Marker>
-    );
-  };
+        </Marker>
+      );
+    },
+    (prevProps, nextProps) => {
+      return (
+        prevProps.coordinate.latitude === nextProps.coordinate.latitude &&
+        prevProps.coordinate.longitude === nextProps.coordinate.longitude &&
+        prevProps.imageUri === nextProps.imageUri
+      );
+    }
+  );
 
   const data = [
     {
@@ -131,9 +157,22 @@ const Home = () => {
     },
   ];
 
+  const markers = useMemo(() => {
+    return data.map((item) => (
+      <CustomMarker
+        key={item.id}
+        coordinate={{
+          latitude: location ? location.coords.latitude : 0,
+          longitude: location ? location.coords.longitude : 0,
+        }}
+        imageUri={item.imageUri}
+      />
+    ));
+  }, [data, location]);
+
   return (
     <SafeAreaView style={homeStyles.container}>
-      <ToolBar 
+      <ToolBar
         onZoomIn={handleZoomIn}
         onZoomOut={handleZoomOut}
         onGoToCurrentLocation={handleGoToCurrentLocation}
@@ -154,16 +193,7 @@ const Home = () => {
             backgroundColor="transparent"
             barStyle="dark-content"
           />
-
-          <CustomMarker
-            coordinate={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-            }}
-            imageUri={
-              "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            }
-          />
+          {markers}
         </MapView>
       ) : (
         <Text>{text}</Text>

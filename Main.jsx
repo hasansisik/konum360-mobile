@@ -38,6 +38,11 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Group>
           <Stack.Screen
+            name="Onboarding"
+            component={Onboarding}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="BottomTabNavigation"
             component={BottomTabNavigation}
             options={{ headerShown: false }}

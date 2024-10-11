@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home ,Payment,Settings} from "../screens";
+import { Home, Payment, Settings } from "../screens";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../constants/theme";
 
@@ -48,6 +48,12 @@ const BottomTabNavigation = () => {
             />
           ),
         }}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("Home", { closeModal: true });
+          },
+        })}
       />
       <Tab.Screen
         name="Payment"
