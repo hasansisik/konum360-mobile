@@ -14,6 +14,7 @@ import {
   RefundPolitcy,
   SubscriptionPolitcy,
   TermsPoliticy,
+  Notifications,
 } from "./screens/index.js";
 import BottomTabNavigation from "./navigation/BottomTabNavigation.jsx";
 
@@ -85,6 +86,11 @@ export default function App() {
           <Stack.Screen
             name="TermsPoliticy"
             component={TermsPoliticy}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Notifications"
+            component={Notifications}
             options={{ headerShown: false }}
           />
         </Stack.Group>

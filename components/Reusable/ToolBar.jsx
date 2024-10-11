@@ -31,13 +31,8 @@ const ToolBar = ({ onZoomIn, onZoomOut, onGoToCurrentLocation }) => {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       });
-
-      console.log("Reverse Geocode Data:", reverseGeocode);
-
       if (reverseGeocode.length > 0) {
         const { street, subregion } = reverseGeocode[0];
-        console.log("Street:", street);
-        console.log("Subregion:", subregion);
         setAddress(street && subregion ? `${street}, ${subregion}` : 'Adres bulunamadı');
       } else {
         setAddress('Adres bulunamadı');
@@ -50,7 +45,7 @@ const ToolBar = ({ onZoomIn, onZoomOut, onGoToCurrentLocation }) => {
       <View style={styles.topRow}>
         <TouchableOpacity
           style={[styles.circle, styles.touchableArea]}
-          onPress={() => console.log("Message icon pressed")}
+          onPress={() => navigation.navigate('Notifications')}
           activeOpacity={0.7}
         >
           <MaterialCommunityIcons

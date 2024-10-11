@@ -7,6 +7,7 @@ import PrivacyPoliticy from "./Other/PrivacyPoliticy";
 import TermsPoliticy from "./Other/TermsPoliticy";
 import SubscriptionPolitcy from "./Other/SubscriptionPolitcy";
 import RefundPolitcy from "./Other/RefundPolitcy";
+import Notifications from "./Other/Notifications";
 
 export {
   Onboarding,
@@ -18,4 +19,5 @@ export {
   RefundPolitcy,
   SubscriptionPolitcy,
   TermsPoliticy,
+  Notifications,
 };
