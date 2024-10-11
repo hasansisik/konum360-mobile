@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.lightWhite,
     borderRadius: 30,
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 15,
     ...SHADOWS.large,
   },
   circle: {
