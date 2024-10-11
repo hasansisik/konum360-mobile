@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import {
   Feather,
@@ -6,10 +6,45 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
+import * as Location from 'expo-location';
 import { COLORS, SHADOWS, TEXT } from "../../constants/theme";
 import ReusableText from "./ReusableText";
 
-const ToolBar = () => {
+const ToolBar = ({ onZoomIn, onZoomOut, onGoToCurrentLocation }) => {
+  const navigation = useNavigation();
+  const [location, setLocation] = useState(null);
+  const [address, setAddress] = useState("Konum aranıyor...");
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setAddress('Konum izni verilmedi');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+
+      let reverseGeocode = await Location.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+
+      console.log("Reverse Geocode Data:", reverseGeocode);
+
+      if (reverseGeocode.length > 0) {
+        const { street, subregion } = reverseGeocode[0];
+        console.log("Street:", street);
+        console.log("Subregion:", subregion);
+        setAddress(street && subregion ? `${street}, ${subregion}` : 'Adres bulunamadı');
+      } else {
+        setAddress('Adres bulunamadı');
+      }
+    })();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
@@ -26,7 +61,7 @@ const ToolBar = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.circle, styles.touchableArea]}
-          onPress={() => console.log("Settings icon pressed")}
+          onPress={() => navigation.navigate('Settings')}
           activeOpacity={0.7}
         >
           <Ionicons
@@ -39,24 +74,24 @@ const ToolBar = () => {
       <View style={styles.topMiddle}>
         <View style={styles.Adress}>
           <ReusableText
-            text={"Eyüp,İstanbulsadasd"}
+            text={address}
             family={"medium"}
-            size={TEXT.small}
+            size={TEXT.xSmall}
             color={COLORS.black}
-            maxLength={15}
+            maxLength={25}
           />
         </View>
       </View>
       <View style={styles.middleRow}>
         <TouchableOpacity
           style={styles.circle}
-          onPress={() => console.log("Add icon pressed")}
+          onPress={onZoomIn}
         >
           <MaterialIcons name="add" size={24} color={COLORS.lightBlack} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.circle}
-          onPress={() => console.log("Horizontal rule icon pressed")}
+          onPress={onZoomOut}
         >
           <MaterialIcons
             name="horizontal-rule"
@@ -66,7 +101,7 @@ const ToolBar = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.circle}
-          onPress={() => console.log("Navigation icon pressed")}
+          onPress={onGoToCurrentLocation}
         >
           <Feather name="navigation" size={24} color={COLORS.lightBlack} />
         </TouchableOpacity>
@@ -102,7 +137,7 @@ const styles = StyleSheet.create({
   Adress: {
     backgroundColor: COLORS.lightWhite,
     borderRadius: 30,
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
     paddingVertical: 10,
     ...SHADOWS.large,
   },

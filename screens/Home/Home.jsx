@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import {
   View,
   Text,
@@ -14,13 +14,14 @@ import homeStyles from "../screens.style";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import HomeModal from "../../components/Reusable/HomeModal"; 
 import { AntDesign } from "@expo/vector-icons";
-import { ToolBar } from "../../components";
+import ToolBar from "../../components/Reusable/ToolBar";
 
 const Home = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [isModalVisible, setModalVisible] = useState(true);
   const navigation = useNavigation();
+  const mapRef = useRef(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -67,6 +68,30 @@ const Home = () => {
     text = JSON.stringify(location);
   }
 
+  const handleZoomIn = async () => {
+    const camera = await mapRef.current.getCamera();
+    camera.zoom += 2; 
+    mapRef.current.animateCamera(camera);
+  };
+  
+  const handleZoomOut = async () => {
+    const camera = await mapRef.current.getCamera();
+    camera.zoom -= 2; 
+    mapRef.current.animateCamera(camera);
+  };
+
+  const handleGoToCurrentLocation = () => {
+    if (location) {
+      mapRef.current.animateCamera({
+        center: {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        },
+        zoom: 18,
+      });
+    }
+  };
+
   const CustomMarker = ({ coordinate, imageUri }) => {
     return (
       <Marker coordinate={coordinate}>
@@ -108,9 +133,14 @@ const Home = () => {
 
   return (
     <SafeAreaView style={homeStyles.container}>
-      <ToolBar />
+      <ToolBar 
+        onZoomIn={handleZoomIn}
+        onZoomOut={handleZoomOut}
+        onGoToCurrentLocation={handleGoToCurrentLocation}
+      />
       {location ? (
         <MapView
+          ref={mapRef}
           style={homeStyles.map}
           initialRegion={{
             latitude: location.coords.latitude,
