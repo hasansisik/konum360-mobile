@@ -35,6 +35,7 @@ const Home = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const mapRef = useRef(null);
+  const [region, setRegion] = useState(null); 
 
   useFocusEffect(
     useCallback(() => {
@@ -64,9 +65,15 @@ const Home = () => {
         setErrorMsg("Permission to access location was denied");
         return;
       }
-
+  
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      setRegion({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.015,
+      });
     })();
   }, []);
 
@@ -88,29 +95,28 @@ const Home = () => {
   }
 
   const handleZoomIn = () => {
-  if (mapRef.current) {
-    const region = {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      latitudeDelta: 0.005, // Daha yakın bir zoom değeri
-      longitudeDelta: 0.005,
-    };
-    mapRef.current.animateToRegion(region, 1000);
-  }
-};
-
-const handleZoomOut = () => {
-  if (mapRef.current) {
-    const region = {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      latitudeDelta: 0.05, // Daha uzak bir zoom değeri
-      longitudeDelta: 0.05,
-    };
-    mapRef.current.animateToRegion(region, 1000);
-  }
-};
-
+    if (mapRef.current && region) {
+      const newRegion = {
+        ...region,
+        latitudeDelta: region.latitudeDelta / 2,
+        longitudeDelta: region.longitudeDelta / 2,
+      };
+      setRegion(newRegion);
+      mapRef.current.animateToRegion(newRegion, 1000);
+    }
+  };
+  
+  const handleZoomOut = () => {
+    if (mapRef.current && region) {
+      const newRegion = {
+        ...region,
+        latitudeDelta: region.latitudeDelta * 2,
+        longitudeDelta: region.longitudeDelta * 2,
+      };
+      setRegion(newRegion);
+      mapRef.current.animateToRegion(newRegion, 1000);
+    }
+  };
 
   const handleGoToCurrentLocation = () => {
     if (location) {
