@@ -13,12 +13,17 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import homeStyles from "../screens.style";
-import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import HomeModal from "../../components/Reusable/HomeModal";
 import { AntDesign } from "@expo/vector-icons";
 import ToolBar from "../../components/Reusable/ToolBar";
@@ -75,34 +80,58 @@ const Home = () => {
     setModalVisible(!isModalVisible);
   };
 
-  let text = "Waiting..";
+  let text = "Harita Yükleniyor...";
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
     text = JSON.stringify(location);
   }
 
-  const handleZoomIn = async () => {
-    const camera = await mapRef.current.getCamera();
-    camera.zoom += 2;
-    mapRef.current.animateCamera(camera);
-  };
+  const handleZoomIn = () => {
+  if (mapRef.current) {
+    const region = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      latitudeDelta: 0.005, // Daha yakın bir zoom değeri
+      longitudeDelta: 0.005,
+    };
+    mapRef.current.animateToRegion(region, 1000);
+  }
+};
 
-  const handleZoomOut = async () => {
-    const camera = await mapRef.current.getCamera();
-    camera.zoom -= 2;
-    mapRef.current.animateCamera(camera);
-  };
+const handleZoomOut = () => {
+  if (mapRef.current) {
+    const region = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      latitudeDelta: 0.05, // Daha uzak bir zoom değeri
+      longitudeDelta: 0.05,
+    };
+    mapRef.current.animateToRegion(region, 1000);
+  }
+};
+
 
   const handleGoToCurrentLocation = () => {
     if (location) {
-      mapRef.current.animateCamera({
-        center: {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        },
-        zoom: 18,
-      });
+      try {
+        mapRef.current.animateCamera(
+          {
+            center: {
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+            },
+            zoom: 18,
+          },
+          { duration: 1000, useNativeDriver: true }
+        );
+      } catch (error) {
+        Alert.alert(
+          "Location Error",
+          "An error occurred while moving to the current location."
+        );
+        console.error("Location Error:", error);
+      }
     }
   };
 
@@ -196,7 +225,9 @@ const Home = () => {
           {markers}
         </MapView>
       ) : (
-        <Text>{text}</Text>
+        <View style={homeStyles.loadingContainer}>
+          <Text style={homeStyles.loadingText}>{text}</Text>
+        </View>
       )}
       <HomeModal
         isModalVisible={isModalVisible}

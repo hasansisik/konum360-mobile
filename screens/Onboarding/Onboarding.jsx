@@ -1,6 +1,5 @@
 import { View, SafeAreaView, Platform, StatusBar, StyleSheet } from 'react-native';
 import React, { useEffect, useRef } from 'react';
-import { useRoute } from '@react-navigation/native';
 import { Video } from 'expo-av';
 import { ReusableText, ReusableButton } from '../../components';
 import { COLORS, TEXT, SIZES } from '../../constants/theme';
@@ -11,7 +10,9 @@ const Onboarding = ({ navigation }) => {
 
   useEffect(() => {
     StatusBar.setBarStyle('light-content');
-    StatusBar.setBackgroundColor('transparent');
+    if (Platform.OS === 'android') {
+      StatusBar.setBackgroundColor('transparent');
+    }
   }, []);
 
   const submitHandler = async () => {

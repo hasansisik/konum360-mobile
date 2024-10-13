@@ -140,6 +140,17 @@ const homeStyles = StyleSheet.create({
     paddingHorizontal: 20,
     gap: 20,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: 16,
+    color: 'black',
+    marginBottom: 150, // Metni biraz yukarı çekmek için marginBottom ekledik
+
+  },
 });
 
 export default homeStyles;

@@ -17,7 +17,7 @@ const ToolBar = ({ onZoomIn, onZoomOut, onGoToCurrentLocation }) => {
   const [address, setAddress] = useState("Konum aranıyor...");
 
   useEffect(() => {
-    (async () => {
+    const getLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setAddress('Konum izni verilmedi');
@@ -37,7 +37,9 @@ const ToolBar = ({ onZoomIn, onZoomOut, onGoToCurrentLocation }) => {
       } else {
         setAddress('Adres bulunamadı');
       }
-    })();
+    };
+
+    getLocation();
   }, []);
 
   return (
@@ -117,10 +119,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
+    zIndex: 20,
   },
   middleRow: {
     position: "absolute",
     top: 225,
+    zIndex: 10,
   },
   topMiddle: {
     position: "absolute",
@@ -128,6 +132,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: "center",
+    zIndex: 10,
   },
   Adress: {
     backgroundColor: COLORS.lightWhite,
@@ -135,6 +140,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
     ...SHADOWS.large,
+    zIndex: 10,
   },
   circle: {
     width: 50,
@@ -145,6 +151,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 10,
     ...SHADOWS.large,
+    zIndex: 10,
   },
 });
 
