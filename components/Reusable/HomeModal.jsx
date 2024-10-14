@@ -13,13 +13,36 @@ const HomeModal = ({ isModalVisible, toggleModal, data }) => {
   const [isShareModalVisible, setShareModalVisible] = useState(false);
   const [isAddModalVisible, setAddModalVisible] = useState(false);
 
-  const toggleShareModal = () => {
-    console.log("toggleShareModal");
-    setShareModalVisible(!isShareModalVisible);
+  const openShareModal = () => {
+    setShareModalVisible(true);
   };
 
-  const toggleAddModal = () => {
-    setAddModalVisible(!isAddModalVisible);
+  const openAddModal = () => {
+    setAddModalVisible(true);
+  };
+
+  const closeShareModal = () => {
+    setShareModalVisible(false);
+  };
+
+  const closeAddModal = () => {
+    setAddModalVisible(false);
+  };
+
+  const handleToggleShareModal = () => {
+    closeAddModal(); 
+    setTimeout(() => {
+      toggleModal(); 
+      setTimeout(openShareModal, 300); 
+    }, 300);
+  };
+
+  const handleToggleAddModal = () => {
+    closeShareModal(); 
+    setTimeout(() => {
+      toggleModal();
+      setTimeout(openAddModal, 300); 
+    }, 300);
   };
 
   return (
@@ -47,7 +70,7 @@ const HomeModal = ({ isModalVisible, toggleModal, data }) => {
             <View style={homeStyles.dragHandle} />
           </View>
           <View style={[homeStyles.flexSpace, { paddingVertical: 20 }]}>
-            <TouchableOpacity style={homeStyles.box} onPress={toggleShareModal}>
+            <TouchableOpacity style={homeStyles.box} onPress={handleToggleShareModal}>
               <View style={homeStyles.boxIcon}>
                 <FontAwesome name="share" size={15} color="white" />
               </View>
@@ -60,7 +83,7 @@ const HomeModal = ({ isModalVisible, toggleModal, data }) => {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={homeStyles.box} onPress={toggleAddModal}>
+            <TouchableOpacity style={homeStyles.box} onPress={handleToggleAddModal}>
               <View style={homeStyles.boxIcon}>
                 <MaterialIcons name="add" size={20} color="white" />
               </View>
@@ -82,8 +105,8 @@ const HomeModal = ({ isModalVisible, toggleModal, data }) => {
           />
         </View>
       </Modal>
-      <LocationShareModal isVisible={isShareModalVisible} onClose={toggleShareModal} />
-      <LocationAddModal isVisible={isAddModalVisible} onClose={toggleAddModal} />
+      <LocationShareModal isVisible={isShareModalVisible} onClose={closeShareModal} />
+      <LocationAddModal isVisible={isAddModalVisible} onClose={closeAddModal} />
     </>
   );
 };
