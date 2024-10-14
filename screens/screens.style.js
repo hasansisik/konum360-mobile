@@ -148,8 +148,18 @@ const homeStyles = StyleSheet.create({
   loadingText: {
     fontSize: 16,
     color: 'black',
-    marginBottom: 150, // Metni biraz yukarı çekmek için marginBottom ekledik
-
+    marginBottom: 150,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: COLORS.lightWhite,
+  },
+  splashImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
   },
 });
 

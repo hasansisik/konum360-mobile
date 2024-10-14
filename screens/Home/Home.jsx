@@ -27,6 +27,31 @@ import {
 import HomeModal from "../../components/Reusable/HomeModal";
 import { AntDesign } from "@expo/vector-icons";
 import ToolBar from "../../components/Reusable/ToolBar";
+import splashImage from "../../assets/splash.png";
+
+const data = [
+  {
+    id: "1",
+    imageUri:
+      "https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D",
+    name: "Hasan Kaya",
+    address: "Merkez Mahallesi, 34000, Istanbul",
+  },
+  {
+    id: "2",
+    imageUri:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Nur Kaya",
+    address: "Mimar Mahallesi, 34000, Istanbul",
+  },
+  {
+    id: "3",
+    imageUri:
+      "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Ali Kaya",
+    address: "Camii Mahallesi, 34000, Istanbul",
+  },
+];
 
 const Home = () => {
   const [location, setLocation] = useState(null);
@@ -86,13 +111,6 @@ const Home = () => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
-  let text = "Harita Yükleniyor...";
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
 
   const handleZoomIn = () => {
     if (mapRef.current && region) {
@@ -168,30 +186,6 @@ const Home = () => {
     }
   );
 
-  const data = [
-    {
-      id: "1",
-      imageUri:
-        "https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D",
-      name: "Hasan Kaya",
-      address: "Merkez Mahallesi, 34000, Istanbul",
-    },
-    {
-      id: "2",
-      imageUri:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      name: "Nur Kaya",
-      address: "Mimar Mahallesi, 34000, Istanbul",
-    },
-    {
-      id: "3",
-      imageUri:
-        "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      name: "Ali Kaya",
-      address: "Camii Mahallesi, 34000, Istanbul",
-    },
-  ];
-
   const markers = useMemo(() => {
     return data.map((item) => (
       <CustomMarker
@@ -207,48 +201,50 @@ const Home = () => {
 
   return (
     <SafeAreaView style={homeStyles.container}>
-      <ToolBar
-        onZoomIn={handleZoomIn}
-        onZoomOut={handleZoomOut}
-        onGoToCurrentLocation={handleGoToCurrentLocation}
-      />
-      {location ? (
-        <MapView
-          ref={mapRef}
-          style={homeStyles.map}
-          initialRegion={{
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.015,
-          }}
-        >
-          <StatusBar
-            translucent
-            backgroundColor="transparent"
-            barStyle="dark-content"
+       {!location || !data.length ? (
+      <View style={homeStyles.loadingContainer}>
+        <Image source={splashImage} style={homeStyles.splashImage} />
+      </View>
+    ) : (
+        <>
+          <ToolBar
+            onZoomIn={handleZoomIn}
+            onZoomOut={handleZoomOut}
+            onGoToCurrentLocation={handleGoToCurrentLocation}
           />
-          {markers}
-        </MapView>
-      ) : (
-        <View style={homeStyles.loadingContainer}>
-          <Text style={homeStyles.loadingText}>{text}</Text>
-        </View>
-      )}
-      <HomeModal
-        isModalVisible={isModalVisible}
-        toggleModal={toggleModal}
-        data={data}
-      />
-      {!isModalVisible && (
-        <TouchableOpacity
-          onPress={toggleModal}
-          style={homeStyles.dragHandleContainerFixed}
-        >
-          <View style={homeStyles.boxIcon}>
-            <AntDesign name="up" size={20} color="white" />
-          </View>
-        </TouchableOpacity>
+          <MapView
+            ref={mapRef}
+            style={homeStyles.map}
+            initialRegion={{
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.015,
+            }}
+          >
+            <StatusBar
+              translucent
+              backgroundColor="transparent"
+              barStyle="dark-content"
+            />
+            {markers}
+          </MapView>
+          <HomeModal
+            isModalVisible={isModalVisible}
+            toggleModal={toggleModal}
+            data={data}
+          />
+          {!isModalVisible && (
+            <TouchableOpacity
+              onPress={toggleModal}
+              style={homeStyles.dragHandleContainerFixed}
+            >
+              <View style={homeStyles.boxIcon}>
+                <AntDesign name="up" size={20} color="white" />
+              </View>
+            </TouchableOpacity>
+          )}
+        </>
       )}
     </SafeAreaView>
   );
