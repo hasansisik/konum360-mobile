@@ -28,6 +28,8 @@ import HomeModal from "../../components/Reusable/HomeModal";
 import { AntDesign } from "@expo/vector-icons";
 import ToolBar from "../../components/Reusable/ToolBar";
 import splashImage from "../../assets/splash.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getFollowingLocations } from "../../redux/userActions";
 
 const data = [
   {
@@ -61,6 +63,18 @@ const Home = () => {
   const route = useRoute();
   const mapRef = useRef(null);
   const [region, setRegion] = useState(null); 
+
+  const dispatch = useDispatch();
+  const deviceId = useSelector((state) => state.user.deviceId);
+  const followingLocations = useSelector(
+    (state) => state.user.followingLocations
+  );
+
+  useEffect(() => {
+    if (deviceId) {
+      dispatch(getFollowingLocations({ deviceId }));
+    }
+  }, [deviceId, dispatch]);
 
   useFocusEffect(
     useCallback(() => {
@@ -232,7 +246,7 @@ const Home = () => {
           <HomeModal
             isModalVisible={isModalVisible}
             toggleModal={toggleModal}
-            data={data}
+            followingLocations={followingLocations}
           />
           {!isModalVisible && (
             <TouchableOpacity

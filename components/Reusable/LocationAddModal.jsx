@@ -9,7 +9,7 @@ import ReusableText from "./ReusableText";
 import ReusableInput from "./ReusableInput";
 import { addTracker, loadUser } from "../../redux/userActions";
 import NoticeMessage from "./NoticeMessage";
-import { locationAddSchema } from "../../utils/validation"; // Validation schema ekleyin
+import { locationAddSchema } from "../../utils/validation"; 
 import HeightSpacer from "./HeightSpacer";
 
 const LocationAddModal = ({ isVisible, onClose }) => {
@@ -18,8 +18,6 @@ const LocationAddModal = ({ isVisible, onClose }) => {
   const [message, setMessage] = useState(null);
 
   const deviceId = useSelector((state) => state.user.deviceId);
-
-  console.log("deviceId", deviceId);
 
   const formik = useFormik({
     initialValues: { nickname: "", code: "" },

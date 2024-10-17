@@ -6,17 +6,32 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AppBar, HeightSpacer, ReusableText, ReusableSettings } from "../../components";
 import { COLORS, TEXT } from "../../constants/theme";
 import homeStyles from "../screens.style";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Switch } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleVisibility } from "../../redux/userActions";
 
 const Settings = ({ navigation }) => {
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+  const dispatch = useDispatch();
+  const deviceId = useSelector((state) => state.user.deviceId);
+  const user = useSelector((state) => state.user.user); 
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
 
-  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+  const onToggleSwitch = async () => {
+    const newVisibility = !isSwitchOn;
+    setIsSwitchOn(newVisibility);
+    await dispatch(toggleVisibility({ deviceId, visibility: newVisibility }));
+  };
+
+  useEffect(() => {
+    if (user && user.visibility !== undefined) {
+      setIsSwitchOn(user.visibility);
+    }
+  }, [user]);
 
   return (
     <SafeAreaView

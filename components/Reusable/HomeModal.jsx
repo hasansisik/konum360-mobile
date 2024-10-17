@@ -9,7 +9,7 @@ import homeStyles from "../../screens/screens.style";
 import LocationShareModal from "./LocationShareModal";
 import LocationAddModal from "./LocationAddModal";
 
-const HomeModal = ({ isModalVisible, toggleModal, data }) => {
+const HomeModal = ({ isModalVisible, toggleModal, followingLocations }) => {
   const [isShareModalVisible, setShareModalVisible] = useState(false);
   const [isAddModalVisible, setAddModalVisible] = useState(false);
 
@@ -30,20 +30,24 @@ const HomeModal = ({ isModalVisible, toggleModal, data }) => {
   };
 
   const handleToggleShareModal = () => {
-    closeAddModal(); 
+    closeAddModal();
     setTimeout(() => {
-      toggleModal(); 
-      setTimeout(openShareModal, 300); 
+      toggleModal();
+      setTimeout(openShareModal, 300);
     }, 300);
   };
 
   const handleToggleAddModal = () => {
-    closeShareModal(); 
+    closeShareModal();
     setTimeout(() => {
       toggleModal();
-      setTimeout(openAddModal, 300); 
+      setTimeout(openAddModal, 300);
     }, 300);
   };
+
+  const renderItem = ({ item }) => (
+    <HomeCard key={item._id || item.id} item={item} />
+  );
 
   return (
     <>
@@ -70,7 +74,10 @@ const HomeModal = ({ isModalVisible, toggleModal, data }) => {
             <View style={homeStyles.dragHandle} />
           </View>
           <View style={[homeStyles.flexSpace, { paddingVertical: 20 }]}>
-            <TouchableOpacity style={homeStyles.box} onPress={handleToggleShareModal}>
+            <TouchableOpacity
+              style={homeStyles.box}
+              onPress={handleToggleShareModal}
+            >
               <View style={homeStyles.boxIcon}>
                 <FontAwesome name="share" size={15} color="white" />
               </View>
@@ -83,7 +90,10 @@ const HomeModal = ({ isModalVisible, toggleModal, data }) => {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={homeStyles.box} onPress={handleToggleAddModal}>
+            <TouchableOpacity
+              style={homeStyles.box}
+              onPress={handleToggleAddModal}
+            >
               <View style={homeStyles.boxIcon}>
                 <MaterialIcons name="add" size={20} color="white" />
               </View>
@@ -98,14 +108,19 @@ const HomeModal = ({ isModalVisible, toggleModal, data }) => {
             </TouchableOpacity>
           </View>
           <FlatList
-            data={data}
-            renderItem={({ item }) => <HomeCard item={item} />}
-            keyExtractor={(item) => item.id}
+            data={followingLocations}
+            renderItem={renderItem}
+            keyExtractor={(item) =>
+              (item?._id || item?.id || Math.random().toString()).toString()
+            }
             contentContainerStyle={{ gap: SIZES.medium }}
           />
         </View>
       </Modal>
-      <LocationShareModal isVisible={isShareModalVisible} onClose={closeShareModal} />
+      <LocationShareModal
+        isVisible={isShareModalVisible}
+        onClose={closeShareModal}
+      />
       <LocationAddModal isVisible={isAddModalVisible} onClose={closeAddModal} />
     </>
   );

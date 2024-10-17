@@ -46,7 +46,7 @@ export const updateLocation = createAsyncThunk(
   "user/updateLocation",
   async ({ deviceId, latitude, longitude }, thunkAPI) => {
     try {
-      const response = await axios.put(`${server}/update-location`, { deviceId, latitude, longitude });
+      const response = await axios.put(`${server}/user/update-location`, { deviceId, latitude, longitude });
       return response.data.user;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.error);
@@ -58,8 +58,9 @@ export const updateLocation = createAsyncThunk(
 export const getFollowingLocations = createAsyncThunk(
   "user/getFollowingLocations",
   async ({ deviceId }, thunkAPI) => {
+    console.log(deviceId);
     try {
-      const response = await axios.get(`${server}/get-following-locations`, { params: { deviceId } });
+      const response = await axios.get(`${server}/user/following-locations/${deviceId}`);
       return response.data.followingLocations;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.error);
@@ -72,7 +73,7 @@ export const toggleVisibility = createAsyncThunk(
   "user/toggleVisibility",
   async ({ deviceId, visibility }, thunkAPI) => {
     try {
-      const response = await axios.patch(`${server}/toggle-visibility`, { deviceId, visibility });
+      const response = await axios.patch(`${server}/user/toggle-visibility`, { deviceId, visibility });
       return response.data.user;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.error);
@@ -98,7 +99,7 @@ export const checkZone = createAsyncThunk(
   "user/checkZone",
   async ({ deviceId }, thunkAPI) => {
     try {
-      const response = await axios.post(`${server}/check-zone`, { deviceId });
+      const response = await axios.post(`${server}/user/check-zone`, { deviceId });
       return response.data.message;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.error);
@@ -111,7 +112,7 @@ export const getLog = createAsyncThunk(
   "user/getLog",
   async ({ deviceId }, thunkAPI) => {
     try {
-      const response = await axios.get(`${server}/get-log`, { params: { deviceId } });
+      const response = await axios.get(`${server}/user/get-log`, { params: { deviceId } });
       return response.data.followingLogs;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.error);
