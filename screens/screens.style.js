@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { COLORS, SIZES } from '../constants/theme';
+import { StyleSheet } from "react-native";
+import { COLORS, SIZES } from "../constants/theme";
 
 const homeStyles = StyleSheet.create({
   container: {
@@ -61,6 +61,10 @@ const homeStyles = StyleSheet.create({
     height: 50,
     marginRight: 10,
     borderRadius: 25,
+  },
+  imageProfile: {
+    width: 75,
+    height: 75,
   },
   circle: {
     width: 30,
@@ -132,22 +136,22 @@ const homeStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.primary,
   },
-  footer : {
+  footer: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    justifyContent: "flex-end",
+    alignItems: "center",
     paddingBottom: 90,
     paddingHorizontal: 20,
     gap: 15,
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   loadingText: {
     fontSize: 16,
-    color: 'black',
+    color: "black",
     marginBottom: 150,
   },
   loadingContainer: {
@@ -161,6 +165,18 @@ const homeStyles = StyleSheet.create({
     height: "100%",
     resizeMode: "contain",
   },
+  logsCard: {
+    backgroundColor: COLORS.lightInput,
+    borderColor: COLORS.lightBorder,
+    borderWidth: 1,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
 });
 
 export default homeStyles;
