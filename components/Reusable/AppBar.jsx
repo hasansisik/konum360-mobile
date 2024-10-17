@@ -93,6 +93,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 1,
+    borderColor: COLORS.lightBlack,
   }),
   box1: (color1) => ({
     backgroundColor: color1,

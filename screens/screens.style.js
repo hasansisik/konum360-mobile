@@ -136,9 +136,9 @@ const homeStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingBottom: 100,
+    paddingBottom: 90,
     paddingHorizontal: 20,
-    gap: 20,
+    gap: 15,
   },
   loadingContainer: {
     flex: 1,
