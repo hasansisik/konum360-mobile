@@ -56,17 +56,29 @@ const ToolBar = ({ onZoomIn, onZoomOut, onGoToCurrentLocation }) => {
             color={COLORS.lightBlack}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.circle, styles.touchableArea]}
-          onPress={() => navigation.navigate('Settings')}
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name="settings-outline"
-            size={24}
-            color={COLORS.lightBlack}
-          />
-        </TouchableOpacity>
+        <View style={styles.rightColumn}>
+          <TouchableOpacity
+            style={[styles.circle, styles.touchableArea]}
+            onPress={() => navigation.navigate('Settings')}
+            activeOpacity={0.7}
+          >
+            <Ionicons
+              name="settings-outline"
+              size={24}
+              color={COLORS.lightBlack}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.circle, styles.touchableArea]}
+            onPress={() => navigation.navigate('Zone')}
+          >
+            <MaterialIcons
+              name="add-home-work"
+              size={24}
+              color={COLORS.lightBlack}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.topMiddle}>
         <View style={styles.Adress}>

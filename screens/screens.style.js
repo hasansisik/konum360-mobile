@@ -117,6 +117,14 @@ const homeStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  boxIcon2: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: COLORS.primary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   triangle: {
     width: 0,
     height: 0,

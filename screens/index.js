@@ -8,6 +8,7 @@ import TermsPoliticy from "./Other/TermsPoliticy";
 import SubscriptionPolitcy from "./Other/SubscriptionPolitcy";
 import RefundPolitcy from "./Other/RefundPolitcy";
 import Notifications from "./Other/Notifications";
+import Zone from "./Other/Zone";
 
 export {
   Onboarding,
@@ -20,4 +21,5 @@ export {
   SubscriptionPolitcy,
   TermsPoliticy,
   Notifications,
+  Zone
 };

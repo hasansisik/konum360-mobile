@@ -15,6 +15,7 @@ import {
   SubscriptionPolitcy,
   TermsPoliticy,
   Notifications,
+  Zone
 } from "./screens/index.js";
 import BottomTabNavigation from "./navigation/BottomTabNavigation.jsx";
 import { useDispatch } from "react-redux";
@@ -101,6 +102,11 @@ export default function App() {
           <Stack.Screen
             name="Notifications"
             component={Notifications}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Zone"
+            component={Zone}
             options={{ headerShown: false }}
           />
         </Stack.Group>
