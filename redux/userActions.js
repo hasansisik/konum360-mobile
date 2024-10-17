@@ -58,7 +58,6 @@ export const updateLocation = createAsyncThunk(
 export const getFollowingLocations = createAsyncThunk(
   "user/getFollowingLocations",
   async ({ deviceId }, thunkAPI) => {
-    console.log(deviceId);
     try {
       const response = await axios.get(`${server}/user/following-locations/${deviceId}`);
       return response.data.followingLocations;

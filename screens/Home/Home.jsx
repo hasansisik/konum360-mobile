@@ -29,31 +29,7 @@ import { AntDesign } from "@expo/vector-icons";
 import ToolBar from "../../components/Reusable/ToolBar";
 import splashImage from "../../assets/splash.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getFollowingLocations } from "../../redux/userActions";
-
-const data = [
-  {
-    id: "1",
-    imageUri:
-      "https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D",
-    name: "Hasan Kaya",
-    address: "Merkez Mahallesi, 34000, Istanbul",
-  },
-  {
-    id: "2",
-    imageUri:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Nur Kaya",
-    address: "Mimar Mahallesi, 34000, Istanbul",
-  },
-  {
-    id: "3",
-    imageUri:
-      "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Ali Kaya",
-    address: "Camii Mahallesi, 34000, Istanbul",
-  },
-];
+import { getFollowingLocations, updateLocation } from "../../redux/userActions";
 
 const Home = () => {
   const [location, setLocation] = useState(null);
@@ -75,6 +51,18 @@ const Home = () => {
       dispatch(getFollowingLocations({ deviceId }));
     }
   }, [deviceId, dispatch]);
+
+  useEffect(() => {
+    let intervalId;
+    if (location && deviceId) {
+      intervalId = setInterval(() => {
+        const { latitude, longitude } = location.coords;
+        dispatch(updateLocation({ deviceId, latitude, longitude }));
+        dispatch(getFollowingLocations({ deviceId }));
+      }, 10000); // 5 dakika = 300000 ms
+    }
+    return () => clearInterval(intervalId);
+  }, [location, deviceId, dispatch]);
 
   useFocusEffect(
     useCallback(() => {
@@ -201,24 +189,24 @@ const Home = () => {
   );
 
   const markers = useMemo(() => {
-    return data.map((item) => (
+    return followingLocations.map((item) => (
       <CustomMarker
         key={item.id}
         coordinate={{
-          latitude: location ? location.coords.latitude : 0,
-          longitude: location ? location.coords.longitude : 0,
+          latitude: item.currentLocation.latitude,
+          longitude: item.currentLocation.longitude,
         }}
-        imageUri={item.imageUri}
+        imageUri={item.picture}
       />
     ));
-  }, [data, location]);
+  }, [followingLocations]);
 
   return (
     <SafeAreaView style={homeStyles.container}>
-       {!location || !data.length ? (
-      <View style={homeStyles.loadingContainer}>
-        <Image source={splashImage} style={homeStyles.splashImage} />
-      </View>
+    {!location || !followingLocations.length ? (
+   <View style={homeStyles.loadingContainer}>
+     <Image source={splashImage} style={homeStyles.splashImage} />
+   </View>
     ) : (
         <>
           <ToolBar

@@ -76,7 +76,7 @@ const homeStyles = StyleSheet.create({
   imageContainer: {
     borderWidth: 5,
     borderColor: "#000",
-    borderRadius: 15,
+    borderRadius: 30,
     overflow: "hidden",
     marginBottom: 3,
   },

@@ -8,7 +8,6 @@ import {
   addZone,
   checkZone,
   getLog,
-  getCode,
   loadUser,
 } from "./userActions";
 
