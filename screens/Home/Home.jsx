@@ -244,6 +244,32 @@ const Home = () => {
     }
   );
 
+  const [followingLocationsWithAddress, setFollowingLocationsWithAddress] = useState([]);
+
+  useEffect(() => {
+    const updateFollowingLocationsWithAddress = async () => {
+      const updatedLocations = await Promise.all(
+        followingLocations.map(async (location) => {
+          if (location.currentLocation) {
+            const reverseGeocode = await Location.reverseGeocodeAsync({
+              latitude: location.currentLocation.latitude,
+              longitude: location.currentLocation.longitude,
+            });
+            const { street, subregion } = reverseGeocode[0];
+            const address = street && subregion ? `${street}, ${subregion}` : 'Adres bulunamadı';
+            return { ...location, address };
+          }
+          return location;
+        })
+      );
+      setFollowingLocationsWithAddress(updatedLocations);
+    };
+
+    if (followingLocations.length > 0) {
+      updateFollowingLocationsWithAddress();
+    }
+  }, [followingLocations]);
+
   const markers = useMemo(() => {
     const userMarker = location ? (
       <CustomMarker
@@ -253,10 +279,12 @@ const Home = () => {
           longitude: location.coords.longitude,
         }}
         imageUri="https://i.ibb.co/bsw8bCg/myUser.png"
+        title="Ben"
+        description={address}
       />
     ) : null;
 
-    const followingMarkers = followingLocations.map((item) => (
+    const followingMarkers = followingLocationsWithAddress.map((item) => (
       <CustomMarker
         key={item.id}
         coordinate={{
@@ -264,11 +292,13 @@ const Home = () => {
           longitude: item.currentLocation.longitude,
         }}
         imageUri={item.picture}
+        title={item.nickname}
+        description={item.address}
       />
     ));
 
     return [userMarker, ...followingMarkers];
-  }, [location,followingLocations]);
+  }, [location, followingLocationsWithAddress]);
 
   return (
     <SafeAreaView style={homeStyles.container}>
@@ -298,7 +328,7 @@ const Home = () => {
           <HomeModal
             isModalVisible={isModalVisible}
             toggleModal={toggleModal}
-            followingLocations={[{ id: 'user-location', currentLocation: location?.coords, picture: "https://i.ibb.co/bsw8bCg/myUser.png", nickname: "Ben", address }, ...followingLocations]}
+            followingLocations={[{ id: 'user-location', currentLocation: location?.coords, picture: "https://i.ibb.co/bsw8bCg/myUser.png", nickname: "Ben", address }, ...followingLocationsWithAddress]}
             onLocationSelect={handleGoToLocation}
             />
           {!isModalVisible && (

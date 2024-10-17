@@ -18,21 +18,10 @@ const HomeModal = ({
   const [isShareModalVisible, setShareModalVisible] = useState(false);
   const [isAddModalVisible, setAddModalVisible] = useState(false);
 
-  const openShareModal = () => {
-    setShareModalVisible(true);
-  };
-
-  const openAddModal = () => {
-    setAddModalVisible(true);
-  };
-
-  const closeShareModal = () => {
-    setShareModalVisible(false);
-  };
-
-  const closeAddModal = () => {
-    setAddModalVisible(false);
-  };
+  const openShareModal = () => setShareModalVisible(true);
+  const openAddModal = () => setAddModalVisible(true);
+  const closeShareModal = () => setShareModalVisible(false);
+  const closeAddModal = () => setAddModalVisible(false);
 
   const handleToggleShareModal = () => {
     closeAddModal();
