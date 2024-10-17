@@ -38,7 +38,12 @@ const Home = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const mapRef = useRef(null);
-  const [region, setRegion] = useState(null); 
+  const [region, setRegion] = useState({
+    latitude: 39.9334, 
+    longitude: 32.8597,
+    latitudeDelta: 15.0, 
+    longitudeDelta: 15.0, 
+  });
 
   const dispatch = useDispatch();
   const deviceId = useSelector((state) => state.user.deviceId);
@@ -59,7 +64,7 @@ const Home = () => {
         const { latitude, longitude } = location.coords;
         dispatch(updateLocation({ deviceId, latitude, longitude }));
         dispatch(getFollowingLocations({ deviceId }));
-      }, 10000); // 5 dakika = 300000 ms
+      }, 10000); // 10 saniye
     }
     return () => clearInterval(intervalId);
   }, [location, deviceId, dispatch]);
@@ -93,14 +98,26 @@ const Home = () => {
         return;
       }
   
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation);
       setRegion({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
         latitudeDelta: 0.015,
         longitudeDelta: 0.015,
       });
+
+      // Haritayı mevcut konuma taşı
+      mapRef.current.animateCamera(
+        {
+          center: {
+            latitude: currentLocation.coords.latitude,
+            longitude: currentLocation.coords.longitude,
+          },
+          zoom: 18,
+        },
+        { duration: 1000, useNativeDriver: true }
+      );
     })();
   }, []);
 
@@ -138,26 +155,26 @@ const Home = () => {
     }
   };
 
-  const handleGoToCurrentLocation = () => {
-    if (location) {
-      try {
-        mapRef.current.animateCamera(
-          {
-            center: {
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-            },
-            zoom: 18,
+  const handleGoToCurrentLocation = async () => {
+    try {
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation);
+      mapRef.current.animateCamera(
+        {
+          center: {
+            latitude: currentLocation.coords.latitude,
+            longitude: currentLocation.coords.longitude,
           },
-          { duration: 1000, useNativeDriver: true }
-        );
-      } catch (error) {
-        Alert.alert(
-          "Location Error",
-          "An error occurred while moving to the current location."
-        );
-        console.error("Location Error:", error);
-      }
+          zoom: 18,
+        },
+        { duration: 1000, useNativeDriver: true }
+      );
+    } catch (error) {
+      Alert.alert(
+        "Location Error",
+        "An error occurred while moving to the current location."
+      );
+      console.error("Location Error:", error);
     }
   };
 
@@ -240,12 +257,7 @@ const Home = () => {
           <MapView
             ref={mapRef}
             style={homeStyles.map}
-            initialRegion={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-              latitudeDelta: 0.015,
-              longitudeDelta: 0.015,
-            }}
+            initialRegion={region}
           >
             <StatusBar
               translucent
