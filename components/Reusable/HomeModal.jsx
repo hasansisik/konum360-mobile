@@ -9,7 +9,12 @@ import homeStyles from "../../screens/screens.style";
 import LocationShareModal from "./LocationShareModal";
 import LocationAddModal from "./LocationAddModal";
 
-const HomeModal = ({ isModalVisible, toggleModal, followingLocations }) => {
+const HomeModal = ({
+  isModalVisible,
+  toggleModal,
+  followingLocations,
+  onLocationSelect,
+}) => {
   const [isShareModalVisible, setShareModalVisible] = useState(false);
   const [isAddModalVisible, setAddModalVisible] = useState(false);
 
@@ -46,7 +51,7 @@ const HomeModal = ({ isModalVisible, toggleModal, followingLocations }) => {
   };
 
   const renderItem = ({ item }) => (
-    <HomeCard key={item._id || item.id} item={item} />
+    <HomeCard key={item._id || item.id} item={item} onLocationSelect={onLocationSelect} />
   );
 
   return (

@@ -161,6 +161,29 @@ const Home = () => {
     }
   };
 
+  const handleGoToLocation = (latitude, longitude) => {
+    setModalVisible(!isModalVisible);
+    setTimeout(() => {
+      if (mapRef.current) {
+        try {
+          mapRef.current.animateCamera(
+            {
+              center: { latitude, longitude },
+              zoom: 18,
+            },
+            { duration: 1000, useNativeDriver: true }
+          );
+        } catch (error) {
+          Alert.alert(
+            "Location Error",
+            "An error occurred while moving to the location."
+          );
+          console.error("Location Error:", error);
+        }
+      }
+    }, 100);
+  };
+
   const CustomMarker = memo(
     ({ coordinate, imageUri }) => {
       return (
@@ -203,7 +226,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={homeStyles.container}>
-    {!location || !followingLocations.length ? (
+    {!followingLocations.length ? (
    <View style={homeStyles.loadingContainer}>
      <Image source={splashImage} style={homeStyles.splashImage} />
    </View>
@@ -235,7 +258,8 @@ const Home = () => {
             isModalVisible={isModalVisible}
             toggleModal={toggleModal}
             followingLocations={followingLocations}
-          />
+            onLocationSelect={handleGoToLocation}
+            />
           {!isModalVisible && (
             <TouchableOpacity
               onPress={toggleModal}

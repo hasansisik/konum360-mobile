@@ -1,16 +1,20 @@
 import React from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ReusableText } from "../../components";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { COLORS, TEXT } from "../../constants/theme";
 import homeStyles from "../../screens/screens.style";
 
-const HomeCard = ({ item }) => {
+const HomeCard = ({ item, onLocationSelect }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
     navigation.navigate("UserDetails", { item });
+  };
+
+  const handleGoToLocation = () => {
+    onLocationSelect(item.currentLocation.latitude, item.currentLocation.longitude);
   };
 
   return (
@@ -40,7 +44,7 @@ const HomeCard = ({ item }) => {
         </View>
       </View>
       <View>
-        <TouchableOpacity style={homeStyles.circle}>
+        <TouchableOpacity style={homeStyles.circle} onPress={handleGoToLocation}>
           <FontAwesome name="location-arrow" size={18} color="white" />
         </TouchableOpacity>
       </View>
