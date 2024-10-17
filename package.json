@@ -9,26 +9,32 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.0.0",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
+    "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.7.7",
     "deprecated-react-native-prop-types": "^5.0.0",
     "expo": "^51.0.36",
     "expo-av": "^14.0.7",
     "expo-clipboard": "^6.0.3",
+    "expo-device": "^6.0.2",
     "expo-font": "~12.0.10",
     "expo-location": "~17.0.1",
     "expo-permissions": "^14.4.0",
     "expo-sensors": "~13.0.9",
     "expo-status-bar": "~1.12.1",
+    "formik": "^2.4.6",
     "react": "18.2.0",
     "react-native": "0.74.5",
     "react-native-maps": "1.14.0",
     "react-native-modal": "^13.0.1",
     "react-native-paper": "^5.12.5",
     "react-native-root-toast": "^3.6.0",
-    "react-redux": "^9.1.2"
+    "react-redux": "^9.1.2",
+    "redux-persist": "^6.0.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0"

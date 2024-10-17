@@ -5,12 +5,13 @@ import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-root-toast';
 import { COLORS, TEXT } from "../../constants/theme";
 import ReusableText from "./ReusableText";
+import { useSelector } from "react-redux";
 
 const LocationShareModal = ({ isVisible, onClose }) => {
-  const codeText = "XCODE123COD";
+  const code = useSelector((state) => state.user.code);
 
   const handleLongPress = async () => {
-    await Clipboard.setStringAsync(codeText);
+    await Clipboard.setStringAsync(code);
     Toast.show('Kod panoya kopyalandı.', {
       duration: Toast.durations.SHORT,
       position: Toast.positions.BOTTOM,
@@ -47,7 +48,7 @@ const LocationShareModal = ({ isVisible, onClose }) => {
         </View>
         <TouchableOpacity onLongPress={handleLongPress} style={styles.code}>
           <ReusableText
-            text={codeText}
+            text={code}
             family={"bold"}
             size={TEXT.large}
             color={COLORS.lightBlack}

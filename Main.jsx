@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFonts } from "expo-font";
 //nagivation
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,10 +17,20 @@ import {
   Notifications,
 } from "./screens/index.js";
 import BottomTabNavigation from "./navigation/BottomTabNavigation.jsx";
+import { useDispatch } from "react-redux";
+import * as Device from "expo-device";
+import { registerUser } from "./redux/userActions.js";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const deviceId = Device.osBuildId || "unknown-device-id";
+    dispatch(registerUser({ deviceId }));
+  }, [dispatch]);
+
   //starting before font loading
   const [fontLoaded] = useFonts({
     light: require("./assets/fonts/light.otf"),

@@ -9,6 +9,7 @@ import {
   checkZone,
   getLog,
   getCode,
+  loadUser,
 } from "./userActions";
 
 export const userReducer = createReducer(
@@ -17,6 +18,7 @@ export const userReducer = createReducer(
     followingLocations: [],
     logs: [],
     code: "",
+    deviceId: "", 
     loading: false,
     error: null,
   },
@@ -28,8 +30,23 @@ export const userReducer = createReducer(
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.code = action.payload.code;
+        state.deviceId = action.payload.deviceId; 
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(loadUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loadUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.code = action.payload.code;
+        state.deviceId = action.payload.deviceId; 
+      })
+      .addCase(loadUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
@@ -106,17 +123,6 @@ export const userReducer = createReducer(
         state.logs = action.payload;
       })
       .addCase(getLog.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
-      .addCase(getCode.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getCode.fulfilled, (state, action) => {
-        state.loading = false;
-        state.code = action.payload;
-      })
-      .addCase(getCode.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

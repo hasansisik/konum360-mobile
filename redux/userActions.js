@@ -7,7 +7,20 @@ export const registerUser = createAsyncThunk(
   "user/register",
   async ({ deviceId }, thunkAPI) => {
     try {
-      const response = await axios.post(`${server}/register`, { deviceId });
+      const response = await axios.post(`${server}/user/register`, { deviceId });
+      return response.data.user;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.error);
+    }
+  }
+);
+
+// Load User
+export const loadUser = createAsyncThunk(
+  "user/load",
+  async ({ deviceId }, thunkAPI) => {
+    try {
+      const response = await axios.get(`${server}/user/load-user/${deviceId}`);
       return response.data.user;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.error);
@@ -20,7 +33,7 @@ export const addTracker = createAsyncThunk(
   "user/addTracker",
   async ({ deviceId, code, nickname }, thunkAPI) => {
     try {
-      const response = await axios.post(`${server}/add-tracker`, { deviceId, code, nickname });
+      const response = await axios.post(`${server}/user/add-tracker`, { deviceId, code, nickname });
       return response.data.user;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.error);
@@ -100,19 +113,6 @@ export const getLog = createAsyncThunk(
     try {
       const response = await axios.get(`${server}/get-log`, { params: { deviceId } });
       return response.data.followingLogs;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.error);
-    }
-  }
-);
-
-// Get Code
-export const getCode = createAsyncThunk(
-  "user/getCode",
-  async ({ deviceId }, thunkAPI) => {
-    try {
-      const response = await axios.get(`${server}/get-code`, { params: { deviceId } });
-      return response.data.code;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.error);
     }
