@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import {
   View,
-  Text,
   StatusBar,
   TouchableOpacity,
   Image,
@@ -33,16 +32,17 @@ import { getFollowingLocations, updateLocation } from "../../redux/userActions";
 
 const Home = () => {
   const [location, setLocation] = useState(null);
+  const [address, setAddress] = useState('Adres bulunamadı');
   const [errorMsg, setErrorMsg] = useState(null);
   const [isModalVisible, setModalVisible] = useState(true);
   const navigation = useNavigation();
   const route = useRoute();
   const mapRef = useRef(null);
   const [region, setRegion] = useState({
-    latitude: 39.9334, 
+    latitude: 39.9334, // Varsayılan konum: Ankara, Türkiye
     longitude: 32.8597,
-    latitudeDelta: 15.0, 
-    longitudeDelta: 15.0, 
+    latitudeDelta: 15.0, // Daha geniş bir alanı kapsamak için artırıldı
+    longitudeDelta: 15.0, // Daha geniş bir alanı kapsamak için artırıldı
   });
 
   const dispatch = useDispatch();
@@ -103,8 +103,8 @@ const Home = () => {
       setRegion({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
-        latitudeDelta: 0.015,
-        longitudeDelta: 0.015,
+        latitudeDelta: 15.0,
+        longitudeDelta: 15.0,
       });
 
       // Haritayı mevcut konuma taşı
@@ -118,6 +118,14 @@ const Home = () => {
         },
         { duration: 1000, useNativeDriver: true }
       );
+
+      // Adresi almak için reverse geocoding
+      let reverseGeocode = await Location.reverseGeocodeAsync({
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
+      });
+      const { street, subregion } = reverseGeocode[0];
+      setAddress(street && subregion ? `${street}, ${subregion}` : 'Adres bulunamadı');
     })();
   }, []);
 
@@ -169,6 +177,14 @@ const Home = () => {
         },
         { duration: 1000, useNativeDriver: true }
       );
+
+      // Adresi almak için reverse geocoding
+      let reverseGeocode = await Location.reverseGeocodeAsync({
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
+      });
+      const { street, subregion } = reverseGeocode[0];
+      setAddress(street && subregion ? `${street}, ${subregion}` : 'Adres bulunamadı');
     } catch (error) {
       Alert.alert(
         "Location Error",
@@ -202,9 +218,9 @@ const Home = () => {
   };
 
   const CustomMarker = memo(
-    ({ coordinate, imageUri }) => {
+    ({ coordinate, imageUri, title, description }) => {
       return (
-        <Marker coordinate={coordinate}>
+        <Marker coordinate={coordinate} title={title} description={description}>
           <View style={homeStyles.markerContainer}>
             <View style={homeStyles.imageContainer}>
               <Image
@@ -229,7 +245,18 @@ const Home = () => {
   );
 
   const markers = useMemo(() => {
-    return followingLocations.map((item) => (
+    const userMarker = location ? (
+      <CustomMarker
+        key="user-location"
+        coordinate={{
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        }}
+        imageUri="https://i.ibb.co/bsw8bCg/myUser.png"
+      />
+    ) : null;
+
+    const followingMarkers = followingLocations.map((item) => (
       <CustomMarker
         key={item.id}
         coordinate={{
@@ -239,7 +266,9 @@ const Home = () => {
         imageUri={item.picture}
       />
     ));
-  }, [followingLocations]);
+
+    return [userMarker, ...followingMarkers];
+  }, [location,followingLocations]);
 
   return (
     <SafeAreaView style={homeStyles.container}>
@@ -269,7 +298,7 @@ const Home = () => {
           <HomeModal
             isModalVisible={isModalVisible}
             toggleModal={toggleModal}
-            followingLocations={followingLocations}
+            followingLocations={[{ id: 'user-location', currentLocation: location?.coords, picture: "https://i.ibb.co/bsw8bCg/myUser.png", nickname: "Ben", address }, ...followingLocations]}
             onLocationSelect={handleGoToLocation}
             />
           {!isModalVisible && (
