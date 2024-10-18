@@ -33,9 +33,6 @@ const Payment = ({ navigation }) => {
     };
 
     calculateTimeLeft();
-
-    const interval = setInterval(calculateTimeLeft, 1000); // Her saniye güncelle
-    return () => clearInterval(interval); // Bileşen unmount olduğunda interval'ı temizle
   }, []);
 
   return (
