@@ -14,7 +14,7 @@ import {
   SafeAreaView,
   Alert,
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Circle } from "react-native-maps";
 import * as Location from "expo-location";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import homeStyles from "../screens.style";
@@ -29,6 +29,7 @@ import ToolBar from "../../components/Reusable/ToolBar";
 import splashImage from "../../assets/splash.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getFollowingLocations, updateLocation } from "../../redux/userActions";
+import { COLORS } from "../../constants/theme";
 
 const Home = () => {
   const [location, setLocation] = useState(null);
@@ -39,10 +40,10 @@ const Home = () => {
   const route = useRoute();
   const mapRef = useRef(null);
   const [region, setRegion] = useState({
-    latitude: 39.9334, // Varsayılan konum: Ankara, Türkiye
+    latitude: 39.9334,
     longitude: 32.8597,
-    latitudeDelta: 15.0, // Daha geniş bir alanı kapsamak için artırıldı
-    longitudeDelta: 15.0, // Daha geniş bir alanı kapsamak için artırıldı
+    latitudeDelta: 15.0,
+    longitudeDelta: 15.0,
   });
 
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const Home = () => {
   const followingLocations = useSelector(
     (state) => state.user.followingLocations
   );
+  const zones = useSelector((state) => state.user.zones);
 
   useEffect(() => {
     if (deviceId) {
@@ -64,7 +66,7 @@ const Home = () => {
         const { latitude, longitude } = location.coords;
         dispatch(updateLocation({ deviceId, latitude, longitude }));
         dispatch(getFollowingLocations({ deviceId }));
-      }, 10000); // 10 saniye
+      }, 10000); // 10 seconds
     }
     return () => clearInterval(intervalId);
   }, [location, deviceId, dispatch]);
@@ -107,7 +109,7 @@ const Home = () => {
         longitudeDelta: 15.0,
       });
 
-      // Haritayı mevcut konuma taşı
+      // Maps Current Location
       mapRef.current.animateCamera(
         {
           center: {
@@ -180,7 +182,7 @@ const Home = () => {
         { duration: 1000, useNativeDriver: true }
       );
 
-      // Adresi almak için reverse geocoding
+      // Get address reverse geocoding
       let reverseGeocode = await Location.reverseGeocodeAsync({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
@@ -308,53 +310,58 @@ const Home = () => {
     return [userMarker, ...followingMarkers];
   }, [location, followingLocationsWithAddress]);
 
+  const circles = useMemo(() => {
+    return zones.map((zone) => (
+      <Circle
+        key={zone._id}
+        center={zone.coordinates}
+        radius={zone.zoneRadius}
+        strokeColor={COLORS.primary}
+        fillColor="rgba(173, 255, 47, 0.3)"
+      />
+    ));
+  }, [zones]);
+
   return (
     <SafeAreaView style={homeStyles.container}>
-      {!followingLocations.length ? (
-        <View style={homeStyles.loadingContainer}>
-          <Image source={splashImage} style={homeStyles.splashImage} />
-        </View>
-      ) : (
-        <>
-          <ToolBar
-            onZoomIn={handleZoomIn}
-            onZoomOut={handleZoomOut}
-            onGoToCurrentLocation={handleGoToCurrentLocation}
-          />
-          <MapView ref={mapRef} style={homeStyles.map} initialRegion={region}>
-            <StatusBar
-              translucent
-              backgroundColor="transparent"
-              barStyle="dark-content"
-            />
-            {markers}
-          </MapView>
-          <HomeModal
-            isModalVisible={isModalVisible}
-            toggleModal={toggleModal}
-            followingLocations={[
-              {
-                id: "user-location",
-                currentLocation: location?.coords,
-                picture: "https://i.ibb.co/bsw8bCg/myUser.png",
-                nickname: "Ben",
-                address,
-              },
-              ...followingLocationsWithAddress,
-            ]}
-            onLocationSelect={handleGoToLocation}
-          />
-          {!isModalVisible && (
-            <TouchableOpacity
-              onPress={toggleModal}
-              style={homeStyles.dragHandleContainerFixed}
-            >
-              <View style={homeStyles.boxIcon}>
-                <AntDesign name="up" size={20} color="white" />
-              </View>
-            </TouchableOpacity>
-          )}
-        </>
+      <ToolBar
+        onZoomIn={handleZoomIn}
+        onZoomOut={handleZoomOut}
+        onGoToCurrentLocation={handleGoToCurrentLocation}
+      />
+      <MapView ref={mapRef} style={homeStyles.map} initialRegion={region}>
+        <StatusBar
+          translucent
+          backgroundColor="transparent"
+          barStyle="dark-content"
+        />
+        {markers}
+        {circles}
+      </MapView>
+      <HomeModal
+        isModalVisible={isModalVisible}
+        toggleModal={toggleModal}
+        followingLocations={[
+          {
+            id: "user-location",
+            currentLocation: location?.coords,
+            picture: "https://i.ibb.co/bsw8bCg/myUser.png",
+            nickname: "Ben",
+            address,
+          },
+          ...followingLocationsWithAddress,
+        ]}
+        onLocationSelect={handleGoToLocation}
+      />
+      {!isModalVisible && (
+        <TouchableOpacity
+          onPress={toggleModal}
+          style={homeStyles.dragHandleContainerFixed}
+        >
+          <View style={homeStyles.boxIcon}>
+            <AntDesign name="up" size={20} color="white" />
+          </View>
+        </TouchableOpacity>
       )}
     </SafeAreaView>
   );

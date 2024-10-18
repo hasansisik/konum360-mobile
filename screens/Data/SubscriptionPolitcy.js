@@ -1,19 +1,43 @@
-export const  SubscriptionPolitcy = `
-Son güncellenme: 19/09/2024
+export const  SubscriptionPolitcy = `Abonelik ve Üyelik Politikaları
 
-Çerez Politikası
-Projectxwire Çerez Politikası
-Çerezlerin Kullanımı
-Projectxwire, kullanıcı deneyimini geliştirmek için çerezler ve benzeri teknolojiler kullanır. Çerezler, uygulamanın nasıl kullanıldığını anlamamıza ve hizmetlerimizi optimize etmemize yardımcı olur.
+1. Giriş
 
-Çerez Türleri
+Bu abonelik ve üyelik politikaları, [uygulama adı] uygulamasında sunulan hizmetlerin kullanımına ilişkin kuralları belirler. Uygulamayı kullanarak bu politikaları kabul etmiş olursunuz.
 
-Zorunlu Çerezler: Uygulamanın temel işlevselliğini sağlamak için gereklidir.
-Analitik Çerezler: Kullanıcıların uygulamayı nasıl kullandığını analiz etmemize olanak tanır.
-İşlevsel Çerezler: Kullanıcı tercihlerini hatırlayarak daha kişiselleştirilmiş bir deneyim sunar.
-Çerez Yönetimi
-Kullanıcılar, çerez ayarlarını tarayıcı veya cihaz ayarlarından değiştirebilir. Ancak, çerezlerin devre dışı bırakılması, uygulamanın bazı işlevlerinin sınırlı olmasına neden olabilir.
+2. Üyelik Türleri
 
-Çerez Politikası Değişiklikleri
-Çerez politikamızı zaman zaman güncelleyebiliriz. Güncellemeler bu sayfada yayınlanacaktır.
+Uygulama, aşağıdaki üyelik türlerini sunmaktadır:
+
+Ücretsiz Üyelik: Belirli özelliklere sınırlı erişim.
+Premium Üyelik: Tüm özelliklere tam erişim. [Aylık/Yıllık] ücret uygulanır.
+3. Abonelik Süreleri
+
+Abonelikler, aşağıdaki sürelerde sunulmaktadır:
+
+Aylık abonelik
+Yıllık abonelik
+4. Ücretlendirme
+
+Premium üyelik ücreti [belirtilen tutar] olup, [ödemelerin yapılacağı platformlar] üzerinden tahsil edilecektir.
+Abonelikler otomatik olarak yenilenecektir. Kullanıcılar, yenileme tarihinden [x gün] önce iptal talebinde bulunmadıkları sürece, abonelikleri otomatik olarak yenilenecektir.
+5. İptal ve İade Koşulları
+
+Kullanıcılar, aboneliklerini [uygulama içi ayarlar] bölümünden iptal edebilirler.
+İptal işlemi yapıldığında, mevcut abonelik süresi sona erene kadar hizmet alınmaya devam edilecektir.
+İade talepleri, [iade politikası] çerçevesinde değerlendirilecektir.
+6. Kullanım Koşulları
+
+Üyelik, yalnızca kişisel ve ticari olmayan amaçlarla kullanılmalıdır. Kullanıcılar, aboneliklerini başkalarıyla paylaşamaz veya devredemezler.
+
+7. Hizmetin Değiştirilmesi veya Durdurulması
+
+Uygulama, üyelik ve abonelik planlarını değiştirme veya hizmeti durdurma hakkını saklı tutar. Kullanıcılara bu değişiklikler hakkında önceden bilgi verilecektir.
+
+8. Gizlilik
+
+Kullanıcı bilgileri, [gizlilik politikası linki] çerçevesinde korunur. Kullanıcılar, bu politikayı okuyup kabul ettiklerini beyan eder.
+
+9. İletişim
+
+Herhangi bir soru veya sorun için, [iletişim bilgileri] üzerinden bizimle iletişime geçebilirsiniz.
 `;

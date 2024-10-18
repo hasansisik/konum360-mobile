@@ -3,40 +3,45 @@ import { View, StyleSheet, Platform, KeyboardAvoidingView } from "react-native";
 import Modal from "react-native-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
+import MapView, { Marker, Circle } from "react-native-maps";
+import * as Location from "expo-location";
 import { COLORS, SIZES, TEXT } from "../../constants/theme";
 import ReusableButton from "./ReusableButton";
 import ReusableText from "./ReusableText";
 import ReusableInput from "./ReusableInput";
-import { addTracker, loadUser } from "../../redux/userActions";
 import NoticeMessage from "./NoticeMessage";
-import { locationAddSchema } from "../../utils/validation"; 
 import HeightSpacer from "./HeightSpacer";
+import { addZone } from "../../redux/userActions";
 
 const ZoneModal = ({ isVisible, onClose }) => {
   const dispatch = useDispatch();
   const [status, setStatus] = useState(null);
   const [message, setMessage] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [zone, setZone] = useState(null); 
+  const [region, setRegion] = useState(null); 
 
   const deviceId = useSelector((state) => state.user.deviceId);
 
   const formik = useFormik({
-    initialValues: { nickname: "", code: "" },
-    validationSchema: locationAddSchema, 
+    initialValues: { title: "", zoneRadius: 150 }, 
     onSubmit: async (values) => {
       const actionResult = await dispatch(
-        addTracker({
+        addZone({
           deviceId, 
-          nickname: values.nickname,
-          code: values.code,
+          title: values.title,
+          latitude: zone.latitude,
+          longitude: zone.longitude,
+          zoneRadius: values.zoneRadius,
         })
       );
-      if (addTracker.fulfilled.match(actionResult)) {
+      if (addZone.fulfilled.match(actionResult)) {
         setStatus("success");
         setMessage("Konum başarıyla eklendi.");
         setTimeout(() => {
           onClose();
         }, 1500);
-      } else if (addTracker.rejected.match(actionResult)) {
+      } else if (addZone.rejected.match(actionResult)) {
         const errorMessage = actionResult.payload;
         setStatus("error");
         setMessage(errorMessage);
@@ -49,8 +54,35 @@ const ZoneModal = ({ isVisible, onClose }) => {
     if (!isVisible) {
       setStatus(null);
       formik.resetForm();
+      setZone(null); 
     }
   }, [isVisible]);
+
+  useEffect(() => {
+    const getLocation = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setMessage('Konum izni verilmedi');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      setRegion({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+      });
+    };
+
+    getLocation();
+  }, []);
+
+  const handleMapPress = (e) => {
+    const { latitude, longitude } = e.nativeEvent.coordinate;
+    setZone({ latitude, longitude });
+  };
 
   return (
     <Modal
@@ -87,32 +119,41 @@ const ZoneModal = ({ isVisible, onClose }) => {
           <ReusableInput
             label="Başlık"
             theme={{ colors: { primary: "black" } }}
-            value={formik.values.nickname}
-            onChangeText={formik.handleChange("nickname")}
-            touched={formik.touched.nickname}
-            error={formik.errors.nickname}
+            value={formik.values.title}
+            onChangeText={formik.handleChange("title")}
+            touched={formik.touched.title}
+            error={formik.errors.title}
           />
         </View>
         <View style={styles.inputContainer}>
-        <ReusableText
+          <ReusableText
             text="Harita Alanı"
             family={"medium"}
             size={TEXT.small}
             color={COLORS.black}
           />
-        <ReusableButton
-          btnText="Konum Seç"
-          width={SIZES.width - 80}
-          height={45}
-          borderRadius={SIZES.xSmall}
-          backgroundColor={COLORS.transparent}
-          borderWidth={1}
-          borderColor={COLORS.gray}
-          textColor={COLORS.lightBlack}
-          textFontSize={TEXT.small}
-          textFontFamily={"medium"}
-          onPress={formik.handleSubmit}
-        />
+          {region && (
+            <MapView
+              style={styles.map}
+              region={region}
+              onPress={handleMapPress}
+            >
+              {zone && (
+                <>
+                  <Marker
+                    coordinate={zone}
+                    title="Seçilen Konum"
+                  />
+                  <Circle
+                    center={zone}
+                    radius={formik.values.zoneRadius}
+                    strokeColor={COLORS.primary}
+                    fillColor="rgba(173, 255, 47, 0.3)"
+                  />
+                </>
+              )}
+            </MapView>
+          )}
         </View>
         <HeightSpacer height={40} />
         <ReusableButton
@@ -152,6 +193,12 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "100%",
+  },
+  map: {
+    width: "100%",
+    height: 300,
+    borderRadius: 10,
+    marginTop: 10,
   },
 });
 

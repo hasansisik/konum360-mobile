@@ -1,36 +1,60 @@
 export const PrivacyPoliticy = `Konum360 Gizlilik Politikası
 
-Giriş
-Konum360, kullanıcılarının gizliliğine saygı göstermeyi taahhüt eder. Bu gizlilik politikası, hangi bilgileri topladığımızı, bu bilgileri nasıl kullandığımızı ve koruduğumuzu açıklamaktadır.
+Konum360, hayatınızı kolaylaştırmak ve daha az stresli hale getirmek için sevdiklerinizi, evcil hayvanlarınızı ve önemli eşyalarınızı korur ve birbirine bağlar. Gizliliğinizi sizin kadar ciddiye alıyoruz ve onu korumaya kararlıyız. Bu Gizlilik Politikası, ürünlerimiz ve hizmetlerimiz aracılığıyla toplanan kişisel bilgilerin toplanması, kullanılması, ifşa edilmesi, aktarılması, depolanması ve korunmasına ilişkin uygulamalarımızı ve aynı konudaki tercihlerinizi açıklar.
 
-Topladığımız Bilgiler
-Kişisel Bilgiler: Ad, soyad, e-posta adresi, telefon numarası, iş unvanı, adres.
-Profil Bilgileri: Kullanıcıların isteğe bağlı olarak ekleyebileceği profil resmi.
-Otomatik Olarak Toplanan Bilgiler: Uygulamanın kullanımı sırasında teknik bilgiler, cihaz bilgileri, IP adresi ve tarayıcı bilgileri.
-Kamera İzni: Uygulama, kullanıcının fotoğraf çekmesi veya belge taraması gerektiğinde kamera erişimine ihtiyaç duyar. Kamera kullanımı sadece kullanıcı izni ile aktif hale gelir.
-Dosyalarım İzni: Uygulama, dosya yükleme ve dosyalara erişim işlemleri için cihazınızdaki depolama alanına erişim izni talep edebilir. Bu izin yalnızca kullanıcı tarafından onaylandığında verilir ve uygulama, kullanıcının belirttiği dosyalara erişim sağlar.
-Bildirim İzni: Uygulama, kullanıcılara önemli güncellemeler ve görevlerle ilgili bildirimler göndermek için bildirim izni talep eder. Kullanıcı bu izni onayladığında, sadece gerekli bildirimler gönderilir.
-E-posta Gönderme İzni: Kullanıcıya kayıt onayları, şifre sıfırlama talepleri ve önemli bilgilendirmeler gibi işlemler için e-posta gönderebiliriz.
-Bilgi Kullanımı
-Topladığımız bilgileri aşağıdaki amaçlar için kullanabiliriz:
+Politikamızı incelerken, bunun Konum360, Inc.’in (” Konum360 “, ” biz “, ” bizim ” veya ” bize “) web siteleri, mobil uygulamaları (Konum360, Tile ve Jiobit), yardım merkezi ve sağladığımız diğer ilişkili hizmetler (” Hizmetler “) için geçerli olduğunu unutmayın. Ayrıca Konum360 fiziksel cihazları (örneğin, Tile izleyicileri ve içlerinde Tile bulma teknolojisi gömülü ortak ürünler) ve Etiketler (” Ürünler “)   gibi diğer ürünler için de geçerlidir .
 
-Uygulamanın işlevselliğini sağlamak ve geliştirmek
-Kullanıcı hesabını oluşturmak ve yönetmek
-Müşteri hizmetleri desteği sağlamak
-Uygulama kullanımı hakkında analiz yapmak ve iyileştirmek
-Yasal yükümlülükleri yerine getirmek
-Bilgi Paylaşımı
-Kullanıcı bilgilerini üçüncü taraflarla yalnızca aşağıdaki durumlarda paylaşırız:
+Ürünlerimize ve/veya Hizmetlerimize erişmeden veya bunları kullanmadan önce lütfen bu Politikayı okuduğunuzdan ve kişisel bilgilerinizi burada açıklandığı şekilde nasıl topladığımızı, sakladığımızı, kullandığımızı ve ifşa ettiğimizi anladığınızdan emin olun.
 
-Kullanıcının açık rızası ile
-Yasal zorunluluklar nedeniyle
-Uygulamamızın güvenliğini sağlamak ve korumak amacıyla
-Veri Güvenliği
-Kullanıcı verilerini korumak için teknik ve idari önlemler alıyoruz. Veri güvenliği konusunda endüstri standartlarını izler ve uygun güvenlik protokollerini uygularız.
+İçindekiler
 
-Kullanıcı Hakları
-Kullanıcılar, kişisel verilerine erişme, bu verileri düzeltme veya silme hakkına sahiptir. Ayrıca, veri işleme iznini diledikleri zaman geri çekme hakkına sahiptirler. Hesap silme işlemi için www.projectxwire.com adresinden **dashboard** bölümüne giriş yapıp **users** kısmından hesabınızı silebilirsiniz. Alternatif olarak,info@projectxwire.com adresine e-posta gönderebilir veya +90 532 351 06 87 numarasından çağrı yaparak hesap silme talebinde bulunabilirsiniz.
+TOPLADIĞIMIZ BİLGİLER
+Bize Doğrudan Verdiğiniz Bilgiler
+Ürünlerimizi ve Hizmetlerimizi Kullandığınızda veya Etkileşime Geçtiğinizde Topladığımız Bilgiler
+    Üçüncü Taraflarca Bize Sağlanan Bilgiler
+BİLGİLERİ NASIL TOPLUYORUZ
+    Çerezler ve Benzeri Teknolojiler
+    Analitik ve Reklam Teknolojileri
+III. BİLGİLERİNİZİ NASIL KULLANIYORUZ
 
-Gizlilik Politikasındaki Değişiklikler
-Bu gizlilik politikası, yasal veya iş gereksinimlerine uygun olarak güncellenebilir. Herhangi bir değişiklik durumunda, güncellenen politikayı bu sayfada yayınlayacağız.
+    İdari Amaçlar
+   Konum360 Ürün ve Hizmetlerinin Pazarlanması
+    Araştırma ve Geliştirme
+    İzleme Teknolojisinin Kullanımıyla Otomatik Olarak Toplanan Bilgiler
+ÜÇÜNCÜ TARAFLARLA PAYLAŞTIĞIMIZ BİLGİLER
+    Hayatınızdaki Diğer Kişilere veya Arkadaşlarınıza Açıklama Yapmak
+   Hizmet Sağlayıcılar, İş Ortakları ve Danışmanlar
+   Bir Ticari İşlemle Bağlantılı Olarak Alıcılar ve Diğer Üçüncü Taraflar
+ 
+
+BİLGİLERİNİZ HAKKINDAKİ SEÇİMLERİNİZ
+   Bilgilerinizi Değiştirme, Düzeltme, İnceleme ve Silme
+   Konum360’tan İletişimler
+   Life360 Uygulamasında Konum ve Hareket Verilerinin Toplanması ve Paylaşılması
+   Web Tabanlı Kişisel Bilgi Satışları
+ÇOCUKLARA YÖNELİK POLİTİKAMIZ
+   Çocuk Hesabı Oluşturma
+   Çocuklar Hakkında Topladığımız Kişisel Bilgiler
+   Çocuklar Hakkında Bilgi Paylaşımı
+  Çocuğunuzun Hesabı veya Bilgileri ile İlgili Bizimle İletişime Geçin
+VII. BİLGİLERİNİZİ NASIL KORUYORUZ
+
+   Güvenlik
+   E-posta Adresinizin ve Şifrenizin Doğruluğu ve Gizliliği
+   Jiobit Cihaz Güvenliği
+   Dolandırıcılığın Önlenmesi
+   İleri Transfer
+ 
+
+X. BU GİZLİLİK POLİTİKASINDAKİ DEĞİŞİKLİKLER
+
+Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz, bu nedenle lütfen sık sık inceleyin. Uygulanabilir veri koruma yasaları gereğince size daha fazla bildirimde bulunmamız veya bu tür değişiklikler için onay almanız gerekiyorsa, bunu yapacağız. Aksi takdirde, bu politikadaki değişiklikler yayınlandığında geçerli olacaktır.
+
+Bu Gizlilik Politikasındaki değişikliklerden herhangi birine itiraz ederseniz, Ürünlerimizi ve/veya Hizmetlerimizi kullanmayı bırakmalı ve kişisel bilgilerinizi silmemizi talep edebilirsiniz. Ürünlerimizi veya Hizmetlerimizi kullanmanız yoluyla toplanan tüm bilgiler, söz konusu bilgilerin toplandığı tarihte yürürlükte olan Gizlilik Politikası kapsamındadır.
+
+XI. SORULARINIZ VEYA ENDİŞELERİNİZ VARSA BİZE ULAŞIN
+
+Gizlilik uygulamalarımız, bu Gizlilik Politikamız, Ürünlerimiz veya Hizmetlerimiz hakkında herhangi bir sorunuz varsa lütfen  info@konum360.co adresinden  veya posta yoluyla bizimle iletişime geçin:
+
+Konum360
 `;

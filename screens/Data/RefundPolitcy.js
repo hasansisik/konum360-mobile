@@ -1,22 +1,41 @@
-export const RefundPolitcy = `
-Son güncellenme: 19/09/2024
+export const RefundPolitcy = `İade ve Geri Ödeme Koşulları
 
-İletişim
-Bizimle iletişime geçmek çok kolay! Herhangi bir sorunuz, geri bildiriminiz ya da destek talebiniz olduğunda size yardımcı olmak için buradayız. Aşağıdaki iletişim kanallarımızdan bize ulaşabilirsiniz.
+1. Giriş
 
-İletişim Bilgilerimiz
-Telefon: +90 532 351 06 87
-Sorularınızı doğrudan telefonla iletmek isterseniz, bize hafta içi 09:00-18:00 saatleri arasında ulaşabilirsiniz.
+Bu iade ve geri ödeme koşulları, [uygulama adı] uygulamasında yapılan satın alımlar için geçerlidir. Uygulamayı kullanarak bu koşulları kabul etmiş olursunuz.
 
-Adres:
-Merkez Efendi Mahallesi, Mevlana Caddesi, Tercuman Sitesi, Bina: A6 No: 26
-Zeytinburnu/İstanbul
-Bizi ziyaret etmek isterseniz, yukarıdaki adreste bulunan ofisimize bekleriz.
+2. İade Süresi
 
-E-posta Adreslerimiz:
-Genel sorularınız veya işbirlikleri için: info@projectxwire.com
-Teknik destek ve uygulama ile ilgili talepleriniz için: projectxwire@gmail.com
+Kullanıcılar, satın aldıkları hizmetlerin veya ürünlerin teslim alındığı tarihten itibaren [x gün] içerisinde iade talebinde bulunabilirler.
 
-Sosyal Medya
-Bizi sosyal medya hesaplarımızdan da takip edebilir, en güncel haberler ve duyurular için etkileşimde bulunabilirsiniz.
+3. İade Talebi
+
+İade talebi, uygulama içindeki [belirtilen bölüm] üzerinden veya [iletişim bilgileri] aracılığıyla yapılmalıdır. Talebin işleme alınabilmesi için aşağıdaki bilgilerin sağlanması gerekmektedir:
+
+Kullanıcı adı
+Satın alma tarihi
+İşlem numarası
+İade sebebi
+4. Geri Ödeme İşlemleri
+
+İade talebi onaylandıktan sonra geri ödeme işlemi [x gün] içerisinde başlatılacaktır. Geri ödemeler, kullanıcıların satın alma sırasında kullandıkları ödeme yöntemine yapılacaktır.
+
+5. İade Koşulları
+
+Aşağıdaki durumlarda geri ödeme yapılmayacaktır:
+
+Hizmetin kullanılması durumunda (örneğin, abonelik hizmetleri).
+Kullanım şartlarına veya yasaların ihlal edilmesi durumunda.
+Kullanıcı tarafından sunulan nedenlerin yetersiz bulunması halinde.
+6. İade Süreci
+
+İade sürecinin başlaması için kullanıcı, uygulamada belirtilen yönergeleri takip etmelidir. İade talebinin durumu, kullanıcının e-posta adresine veya uygulama içi bildirimlere gönderilecek güncellemelerle bildirilecektir.
+
+7. Değişiklikler
+
+Bu iade ve geri ödeme koşulları, gerektiğinde güncellenebilir. Kullanıcılar, değişikliklerin ardından uygulamayı kullanmaya devam ettiklerinde yeni koşulları kabul etmiş sayılırlar.
+
+8. İletişim
+
+Herhangi bir soru veya iade talebi için, [iletişim bilgileri] üzerinden bizimle iletişime geçebilirsiniz.
 `;

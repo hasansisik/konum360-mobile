@@ -33,6 +33,9 @@ const Payment = ({ navigation }) => {
     };
 
     calculateTimeLeft();
+
+    const interval = setInterval(calculateTimeLeft, 1000); // Her saniye güncelle
+    return () => clearInterval(interval); // Bileşen unmount olduğunda interval'ı temizle
   }, []);
 
   return (
@@ -67,18 +70,20 @@ const Payment = ({ navigation }) => {
           color={COLORS.lightBlack}
           align={"center"}
         />
-        <Countdown
-          until={timeLeft}
-          size={30}
-          onFinish={() => alert("Kampanya sona erdi!")}
-          digitStyle={{ backgroundColor: COLORS.lightBlack }}
-          digitTxtStyle={{ color: COLORS.primary }}
-          timeLabelStyle={{ color: COLORS.lightBlack, fontWeight: "bold" }}
-          separatorStyle={{ color: "red" }}
-          timeToShow={["D", "H", "M", "S"]}
-          timeLabels={{ d: "Gün", h: "Saat", m: "Dakika", s: "Saniye" }}
-          showSeparator
-        />
+        {timeLeft > 0 && (
+          <Countdown
+            until={timeLeft}
+            size={30}
+            onFinish={() => alert("Kampanya sona erdi!")}
+            digitStyle={{ backgroundColor: COLORS.lightBlack }}
+            digitTxtStyle={{ color: COLORS.primary }}
+            timeLabelStyle={{ color: COLORS.lightBlack, fontWeight: "bold" }}
+            separatorStyle={{ color: "red" }}
+            timeToShow={["D", "H", "M", "S"]}
+            timeLabels={{ d: "Gün", h: "Saat", m: "Dakika", s: "Saniye" }}
+            showSeparator
+          />
+        )}
       </View>
       <View style={styles.details}>
         <View>

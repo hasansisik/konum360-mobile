@@ -114,7 +114,7 @@ const Settings = ({ navigation }) => {
           <ReusableSettings
             icon={"cash-outline"}
             title="İade ve Geri Ödeme Politikası"
-            onPress={() => navigation.navigate("SubscriptionPolitcy")}
+            onPress={() => navigation.navigate("RefundPolitcy")}
           />
           <View
             style={{ borderTopWidth: 1, borderColor: COLORS.lightBorder }}
@@ -122,7 +122,7 @@ const Settings = ({ navigation }) => {
           <ReusableSettings
             icon={"card-outline"}
             title="Abonelik ve Üyelik"
-            onPress={() => navigation.navigate("RefundPolitcy")}
+            onPress={() => navigation.navigate("SubscriptionPolitcy")}
           />
         </View>
       </View>

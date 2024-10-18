@@ -85,7 +85,7 @@ export const addZone = createAsyncThunk(
   "user/addZone",
   async ({ deviceId, title, latitude, longitude, zoneRadius }, thunkAPI) => {
     try {
-      const response = await axios.post(`${server}/add-zone`, { deviceId, title, latitude, longitude, zoneRadius });
+      const response = await axios.post(`${server}/user/add-zone`, { deviceId, title, latitude, longitude, zoneRadius });
       return response.data.user;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.error);

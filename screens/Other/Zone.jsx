@@ -6,24 +6,27 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
 import { AppBar, ReusableText } from "../../components";
 import { COLORS, SIZES, TEXT } from "../../constants/theme";
 import homeStyles from "../screens.style";
 import ZoneCard from "../../components/Card/ZoneCard";
 import { MaterialIcons } from "@expo/vector-icons";
-import ZoneModal from "../../components/Reusable/ZoneModal"; // ZoneModal bileşenini import ediyoruz
+import ZoneModal from "../../components/Reusable/ZoneModal";
+import { useDispatch, useSelector } from "react-redux";
+import {  loadUser } from "../../redux/userActions";
 
 const Zone = ({ navigation }) => {
-  const route = useRoute();
-  const [isZoneModalVisible, setZoneModalVisible] = useState(false); // Modal görünürlüğünü kontrol eden state
+  const dispatch = useDispatch();
+  const [isZoneModalVisible, setZoneModalVisible] = useState(false);
+  const { deviceId } = useSelector((state) => state.user);
+  const zones = useSelector((state) => state.user.zones);
 
-  const data = [
-    { id: "1", title: "Ev", address: "Mimar Sinan Mah. Çekmeköy" },
-    { id: "2", title: "İş", address: "Merkez Mah. Ümraniye" },
-    { id: "3", title: "Okul", address: "Kavacık Beykoz" },
-  ];
+  useEffect(() => {
+    if (deviceId) {
+      dispatch(loadUser({ deviceId }));
+    }
+  }, [deviceId, dispatch]);
 
   const toggleZoneModal = () => {
     setZoneModalVisible(!isZoneModalVisible);
@@ -74,7 +77,7 @@ const Zone = ({ navigation }) => {
       </View>
       <View style={{ paddingHorizontal: 25 }}>
         <FlatList
-          data={data}
+          data={zones}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => <ZoneCard item={item} />}
           keyExtractor={(item) => item.id}

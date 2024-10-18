@@ -16,6 +16,7 @@ export const userReducer = createReducer(
     user: {},
     followingLocations: [],
     logs: [],
+    zones: [],
     code: "",
     deviceId: "", 
     loading: false,
@@ -30,7 +31,8 @@ export const userReducer = createReducer(
         state.loading = false;
         state.user = action.payload;
         state.code = action.payload.code;
-        state.deviceId = action.payload.deviceId; 
+        state.deviceId = action.payload.deviceId;
+        state.zones = action.payload.zones;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
@@ -43,7 +45,7 @@ export const userReducer = createReducer(
         state.loading = false;
         state.user = action.payload;
         state.code = action.payload.code;
-        state.deviceId = action.payload.deviceId; 
+        state.zones = action.payload.zones;
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.loading = false;
