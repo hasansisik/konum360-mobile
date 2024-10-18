@@ -70,7 +70,7 @@ const homeStyles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: "#111",
+    backgroundColor: COLORS.lightBlack,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -79,14 +79,14 @@ const homeStyles = StyleSheet.create({
   },
   imageContainer: {
     borderWidth: 5,
-    borderColor: "#000",
+    borderColor: COLORS.lightBlack,
     borderRadius: 30,
     overflow: "hidden",
     marginBottom: 3,
   },
   markerImage: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
   },
   iconContainer: {
     alignItems: "center",
@@ -124,6 +124,8 @@ const homeStyles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     alignItems: "center",
     justifyContent: "center",
+    borderColor: COLORS.lightBlack,
+    borderWidth: 1,
   },
   triangle: {
     width: 0,

@@ -4,25 +4,30 @@ import {
   Platform,
   StatusBar,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { AppBar, ReusableText } from "../../components";
 import { COLORS, SIZES, TEXT } from "../../constants/theme";
 import homeStyles from "../screens.style";
 import ZoneCard from "../../components/Card/ZoneCard";
-import { TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import ZoneModal from "../../components/Reusable/ZoneModal"; // ZoneModal bileşenini import ediyoruz
 
 const Zone = ({ navigation }) => {
   const route = useRoute();
+  const [isZoneModalVisible, setZoneModalVisible] = useState(false); // Modal görünürlüğünü kontrol eden state
 
   const data = [
     { id: "1", title: "Ev", address: "Mimar Sinan Mah. Çekmeköy" },
     { id: "2", title: "İş", address: "Merkez Mah. Ümraniye" },
     { id: "3", title: "Okul", address: "Kavacık Beykoz" },
-
   ];
+
+  const toggleZoneModal = () => {
+    setZoneModalVisible(!isZoneModalVisible);
+  };
 
   return (
     <SafeAreaView
@@ -44,7 +49,7 @@ const Zone = ({ navigation }) => {
       <View
         style={[
           homeStyles.flexSpace,
-          { paddingHorizontal: 25, paddingVertical: 10, paddingBottom: 25, },
+          { paddingHorizontal: 25, paddingVertical: 10, paddingBottom: 25 },
         ]}
       >
         <ReusableText
@@ -53,7 +58,7 @@ const Zone = ({ navigation }) => {
           size={TEXT.small}
           color={COLORS.lightBlack}
         />
-        <TouchableOpacity style={homeStyles.box}>
+        <TouchableOpacity style={homeStyles.box} onPress={toggleZoneModal}>
           <View style={homeStyles.boxIcon2}>
             <MaterialIcons name="add" size={20} color="black" />
           </View>
@@ -76,6 +81,7 @@ const Zone = ({ navigation }) => {
           contentContainerStyle={{ gap: SIZES.small }}
         />
       </View>
+      <ZoneModal isVisible={isZoneModalVisible} onClose={toggleZoneModal} />
     </SafeAreaView>
   );
 };

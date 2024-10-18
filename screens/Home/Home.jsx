@@ -32,7 +32,7 @@ import { getFollowingLocations, updateLocation } from "../../redux/userActions";
 
 const Home = () => {
   const [location, setLocation] = useState(null);
-  const [address, setAddress] = useState('Adres bulunamadı');
+  const [address, setAddress] = useState("Adres bulunamadı");
   const [errorMsg, setErrorMsg] = useState(null);
   const [isModalVisible, setModalVisible] = useState(true);
   const navigation = useNavigation();
@@ -97,7 +97,7 @@ const Home = () => {
         setErrorMsg("Permission to access location was denied");
         return;
       }
-  
+
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation);
       setRegion({
@@ -125,7 +125,9 @@ const Home = () => {
         longitude: currentLocation.coords.longitude,
       });
       const { street, subregion } = reverseGeocode[0];
-      setAddress(street && subregion ? `${street}, ${subregion}` : 'Adres bulunamadı');
+      setAddress(
+        street && subregion ? `${street}, ${subregion}` : "Adres bulunamadı"
+      );
     })();
   }, []);
 
@@ -150,7 +152,7 @@ const Home = () => {
       mapRef.current.animateToRegion(newRegion, 1000);
     }
   };
-  
+
   const handleZoomOut = () => {
     if (mapRef.current && region) {
       const newRegion = {
@@ -184,7 +186,9 @@ const Home = () => {
         longitude: currentLocation.coords.longitude,
       });
       const { street, subregion } = reverseGeocode[0];
-      setAddress(street && subregion ? `${street}, ${subregion}` : 'Adres bulunamadı');
+      setAddress(
+        street && subregion ? `${street}, ${subregion}` : "Adres bulunamadı"
+      );
     } catch (error) {
       Alert.alert(
         "Location Error",
@@ -244,7 +248,8 @@ const Home = () => {
     }
   );
 
-  const [followingLocationsWithAddress, setFollowingLocationsWithAddress] = useState([]);
+  const [followingLocationsWithAddress, setFollowingLocationsWithAddress] =
+    useState([]);
 
   useEffect(() => {
     const updateFollowingLocationsWithAddress = async () => {
@@ -256,7 +261,10 @@ const Home = () => {
               longitude: location.currentLocation.longitude,
             });
             const { street, subregion } = reverseGeocode[0];
-            const address = street && subregion ? `${street}, ${subregion}` : 'Adres bulunamadı';
+            const address =
+              street && subregion
+                ? `${street}, ${subregion}`
+                : "Adres bulunamadı";
             return { ...location, address };
           }
           return location;
@@ -286,7 +294,7 @@ const Home = () => {
 
     const followingMarkers = followingLocationsWithAddress.map((item) => (
       <CustomMarker
-        key={item.id}
+        key={item._id}
         coordinate={{
           latitude: item.currentLocation.latitude,
           longitude: item.currentLocation.longitude,
@@ -302,22 +310,18 @@ const Home = () => {
 
   return (
     <SafeAreaView style={homeStyles.container}>
-    {!followingLocations.length ? (
-   <View style={homeStyles.loadingContainer}>
-     <Image source={splashImage} style={homeStyles.splashImage} />
-   </View>
-    ) : (
+      {!followingLocations.length ? (
+        <View style={homeStyles.loadingContainer}>
+          <Image source={splashImage} style={homeStyles.splashImage} />
+        </View>
+      ) : (
         <>
           <ToolBar
             onZoomIn={handleZoomIn}
             onZoomOut={handleZoomOut}
             onGoToCurrentLocation={handleGoToCurrentLocation}
           />
-          <MapView
-            ref={mapRef}
-            style={homeStyles.map}
-            initialRegion={region}
-          >
+          <MapView ref={mapRef} style={homeStyles.map} initialRegion={region}>
             <StatusBar
               translucent
               backgroundColor="transparent"
@@ -328,9 +332,18 @@ const Home = () => {
           <HomeModal
             isModalVisible={isModalVisible}
             toggleModal={toggleModal}
-            followingLocations={[{ id: 'user-location', currentLocation: location?.coords, picture: "https://i.ibb.co/bsw8bCg/myUser.png", nickname: "Ben", address }, ...followingLocationsWithAddress]}
+            followingLocations={[
+              {
+                id: "user-location",
+                currentLocation: location?.coords,
+                picture: "https://i.ibb.co/bsw8bCg/myUser.png",
+                nickname: "Ben",
+                address,
+              },
+              ...followingLocationsWithAddress,
+            ]}
             onLocationSelect={handleGoToLocation}
-            />
+          />
           {!isModalVisible && (
             <TouchableOpacity
               onPress={toggleModal}
